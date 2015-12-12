@@ -23,19 +23,22 @@ namespace EloBuddyAutoQueuer
 		public Login()
 		{
 			InitializeComponent();
-			
+			Title = "Log In";
         }
 
 		private void LogIn_Click(object sender, RoutedEventArgs e)
 		{
 			LoginHandler.LoginName = UserName.Text;
-			LoginHandler.PasswordHash = Password.Text;
+			LoginHandler.Password = Password.Password;
 			if (LoginHandler.Login())
 			{
 				WindowHandler.Instance.setLogInWindow(this);
 				WindowHandler.Instance.ShowWindow(typeof(MainWindow));
 				WindowHandler.Instance.CloseWindow(typeof(Login));
-				
+			}
+			else
+			{
+				MessageBox.Show(LoginHandler.Error);
 			}
 		}
 	}

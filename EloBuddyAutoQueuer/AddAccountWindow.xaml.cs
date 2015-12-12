@@ -22,6 +22,7 @@ namespace EloBuddyAutoQueuer
 		public AddAccountWindow()
 		{
 			InitializeComponent();
+			Title = "Add Account";
 		}
 
 		private void AddAccount_Click()

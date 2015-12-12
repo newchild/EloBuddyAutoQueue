@@ -23,6 +23,9 @@ namespace EloBuddyAutoQueuer
         public MainWindow()
 		{
 			InitializeComponent();
+			image.Source = StaticUtils.GetImageStream(LoginHandler.profilePicture);
+			label.Content = LoginHandler.ShownUser;
+			Title = "EloBuddy AutoQueuer";
 		}
 
 		private void newAccountButton_Click(object sender, RoutedEventArgs e)
