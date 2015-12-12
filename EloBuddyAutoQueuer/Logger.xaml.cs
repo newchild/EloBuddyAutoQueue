@@ -34,6 +34,8 @@ namespace EloBuddyAutoQueuer
 
 		public void Log(string text)
 		{
+			Dispatcher.Invoke((Action)delegate ()
+			{
 			TextRange textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
 			textRange.Text = "[LOG]: ";
 			textRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Blue);
@@ -42,32 +44,39 @@ namespace EloBuddyAutoQueuer
 			rangeOfWord.Text = text;
 			rangeOfWord.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Black);
 			rangeOfWord.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
-			
+			});
 		}
 
 		public void Error(string Error)
 		{
-			TextRange textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
-			textRange.Text = "[ERROR]: ";
-			textRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
-			textRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-			TextRange rangeOfWord = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
-			rangeOfWord.Text = Error;
-			rangeOfWord.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Black);
-			rangeOfWord.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
+			Dispatcher.Invoke((Action)delegate ()
+			{
+				TextRange textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
+				textRange.Text = "[ERROR]: ";
+				textRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
+				textRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+				TextRange rangeOfWord = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
+				rangeOfWord.Text = Error;
+				rangeOfWord.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Black);
+				rangeOfWord.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
+			});
+			
 			
 		}
 
 		public void Warning(string Warning)
 		{
-			TextRange textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
-			textRange.Text = "[LOG]: ";
-			textRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Yellow);
-			textRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-			TextRange rangeOfWord = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
-			rangeOfWord.Text = Warning;
-			rangeOfWord.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Black);
-			rangeOfWord.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
+			Dispatcher.Invoke((Action)delegate ()
+			{
+				TextRange textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
+				textRange.Text = "[LOG]: ";
+				textRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Green);
+				textRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+				TextRange rangeOfWord = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
+				rangeOfWord.Text = Warning;
+				rangeOfWord.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Black);
+				rangeOfWord.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
+			});
 			
 		}
 	}

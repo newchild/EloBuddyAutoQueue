@@ -39,8 +39,9 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PVPNetConnect">
-      <HintPath>..\..\..\..\..\Downloads\PVPNetConnect.dll</HintPath>
+    <Reference Include="PVPNetConnect, Version=0.0.0.38074, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\PVPNetConnect.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

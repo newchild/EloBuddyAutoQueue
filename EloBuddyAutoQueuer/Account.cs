@@ -1,5 +1,25 @@
 ﻿using PVPNetConnect;
+using PVPNetConnect.RiotObjects.Platform.Catalog.Champion;
+using PVPNetConnect.RiotObjects.Platform.Clientfacade.Domain;
+using PVPNetConnect.RiotObjects.Platform.Game;
+using PVPNetConnect.RiotObjects.Platform.Game.Message;
 using PVPNetConnect.RiotObjects.Platform.Matchmaking;
+using PVPNetConnect.RiotObjects.Platform.Statistics;
+using PVPNetConnect.RiotObjects;
+using PVPNetConnect.RiotObjects.Leagues.Pojo;
+using PVPNetConnect.RiotObjects.Platform.Game.Practice;
+using PVPNetConnect.RiotObjects.Platform.Harassment;
+using PVPNetConnect.RiotObjects.Platform.Leagues.Client.Dto;
+using PVPNetConnect.RiotObjects.Platform.Login;
+using PVPNetConnect.RiotObjects.Platform.Reroll.Pojo;
+using PVPNetConnect.RiotObjects.Platform.Statistics.Team;
+using PVPNetConnect.RiotObjects.Platform.Summoner;
+using PVPNetConnect.RiotObjects.Platform.Summoner.Boost;
+using PVPNetConnect.RiotObjects.Platform.Summoner.Masterybook;
+using PVPNetConnect.RiotObjects.Platform.Summoner.Runes;
+using PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook;
+using PVPNetConnect.RiotObjects.Team;
+using PVPNetConnect.RiotObjects.Team.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +32,7 @@ namespace EloBuddyAutoQueuer
 	class Account
 	{
 		private string _Username;
+		private LoginDataPacket _LoginPacket;
 		private string _Password;
 		private Region _Region;
 		private PVPNetConnection _Connection;
@@ -23,26 +44,9 @@ namespace EloBuddyAutoQueuer
 		private Status _curentStatus;
 		private SearchingForMatchNotification _GameSearchNotification;
 
-		public async void Pulse()
-		{
-			if(isConnected() && isLoggedIn())
-			{
-				if (_inQueue)
-				{
-					return;
-				}
-
-				_GameSearchNotification =  await _Connection.AttachToQueue(new MatchMakerParams()
-				{
-					QueueIds = new int[] { (int)_QueueType },
-					BotDifficulty = "MEDIUM"
-				});
-				if(_GameSearchNotification.PlayerJoinFailures == null)
-				{
-					_curentStatus = Status.InQueue;
-				}
-            }
-		}
+		
+				
+	
 
 		public Account(string Username, string Password, Region region, QueueType queue = QueueType.Bot)
 		{
@@ -62,9 +66,9 @@ namespace EloBuddyAutoQueuer
 			_Connection.OnMessageReceived += _Connection_OnMessageReceived;
 		}
 
-		private void _Connection_OnMessageReceived(object sender, object message)
+		private async void _Connection_OnMessageReceived(object sender, object message)
 		{
-			Logging.Log(message.GetType().ToString());
+			Logging.Log("Message received: " + message.ToString());
 		}
 
 		private void _connection_OnDisconnect(object sender, EventArgs e)
@@ -86,15 +90,22 @@ namespace EloBuddyAutoQueuer
 			_LoginQueueCount = positionInLine;
 		}
 
-		private void _connection_OnLogin(object sender, string username, string ipAddress)
+		private async void _connection_OnLogin(object sender, string username, string ipAddress)
 		{
 			Logging.Log(username + " logged in");
+			_LoginPacket = await _Connection.GetLoginDataPacketForUser();
+			var player = await _Connection.CreatePlayer();
+			await _Connection.Subscribe("bc", _LoginPacket.AllSummonerData.Summoner.AcctId);
+			await _Connection.Subscribe("cn", _LoginPacket.AllSummonerData.Summoner.AcctId);
+			await _Connection.Subscribe("gn", _LoginPacket.AllSummonerData.Summoner.AcctId);
+			Logging.Log("Subscribed to Notifications");
 			_LoggedIn = true;
 			_curentStatus = Status.LoggedIn;
 		}
 
 		private void _connection_OnConnect(object sender, EventArgs e)
 		{
+			Logging.Log(_Username + " connected");
 			_Connected = true;
 		}
 
@@ -113,9 +124,12 @@ namespace EloBuddyAutoQueuer
 			return _LoginQueueCount;
 		}
 
-		public void Login()
+		public async void Login()
 		{
+			Logging.Log("Connecting...");
 			_Connection.Connect(_Username, _Password, _Region, StaticData.GameVersion);
+			
+			
 		}
 	}
 }
