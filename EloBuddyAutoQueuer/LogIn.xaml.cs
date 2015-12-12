@@ -24,6 +24,9 @@ namespace EloBuddyAutoQueuer
 		{
 			InitializeComponent();
 			Title = "Log In";
+			WindowHandler.Instance.setLogInWindow(this);
+			WindowHandler.Instance.ShowWindow(typeof(Logger));
+			
         }
 
 		private void LogIn_Click(object sender, RoutedEventArgs e)
@@ -32,13 +35,8 @@ namespace EloBuddyAutoQueuer
 			LoginHandler.Password = Password.Password;
 			if (LoginHandler.Login())
 			{
-				WindowHandler.Instance.setLogInWindow(this);
 				WindowHandler.Instance.ShowWindow(typeof(MainWindow));
 				WindowHandler.Instance.CloseWindow(typeof(Login));
-			}
-			else
-			{
-				MessageBox.Show(LoginHandler.Error);
 			}
 		}
 	}

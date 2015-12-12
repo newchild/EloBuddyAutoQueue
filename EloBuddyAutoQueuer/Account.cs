@@ -64,11 +64,12 @@ namespace EloBuddyAutoQueuer
 
 		private void _Connection_OnMessageReceived(object sender, object message)
 		{
-			MessageBox.Show(message.GetType().ToString());
+			Logging.Log(message.GetType().ToString());
 		}
 
 		private void _connection_OnDisconnect(object sender, EventArgs e)
 		{
+			Logging.Warning(_Username + " disconnected");
 			_Connected = false;
 			_LoggedIn = false;
 			_curentStatus = Status.Disconnected;
@@ -76,7 +77,7 @@ namespace EloBuddyAutoQueuer
 
 		private void _connection_OnError(object sender, Error error)
 		{
-			throw new Exception(error.Message);
+			Logging.Error(error.Message);
 		}
 
 		private void _connection_OnLoginQueueUpdate(object sender, int positionInLine)
@@ -87,6 +88,7 @@ namespace EloBuddyAutoQueuer
 
 		private void _connection_OnLogin(object sender, string username, string ipAddress)
 		{
+			Logging.Log(username + " logged in");
 			_LoggedIn = true;
 			_curentStatus = Status.LoggedIn;
 		}

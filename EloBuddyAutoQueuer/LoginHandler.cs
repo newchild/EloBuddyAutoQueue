@@ -22,7 +22,7 @@ namespace EloBuddyAutoQueuer
         public static bool Login()
 		{
 			string BuiltUrl = URL.Replace("user&", LoginName + "&").Replace("md5Pass", Crypto.GetMD5Hash(Password));
-			
+			Logging.Log("Logging in as " + LoginName);
 			WebClient client = new WebClient();
 			string response = client.DownloadString(BuiltUrl);
 			dynamic parsedString = JObject.Parse(response);
@@ -34,7 +34,7 @@ namespace EloBuddyAutoQueuer
 			}
 			else
 			{
-				Error = parsedString.errorMsg;
+				Logging.Error("Failed to Login: " + parsedString.errorMsg);
 			}
 			
 			return parsedString.success;

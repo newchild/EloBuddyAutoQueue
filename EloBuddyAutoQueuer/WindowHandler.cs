@@ -23,22 +23,28 @@ namespace EloBuddyAutoQueuer
 			}
 		}
 		private MainWindow _MainWindow;
+		private Logger _LoggerWindow;
 		private Login _LoginWindow;
 		private AddAccountWindow _AddAccountWindow;
-		public WindowHandler()
-		{
-		}
+
+		
 
 		
 
 		public void setLogInWindow(Login Window)
 		{
 			_LoginWindow = Window;
+			
 		}
+
+		
 
 		public void CloseWindow(Type WindowType)
 		{
-			
+			if (_LoggerWindow != null)
+			{
+				Logging.Log("Closing Window of Type " + WindowType.ToString());
+			}
 			if (WindowType == null)
 				return;
 			if(WindowType == typeof(MainWindow))
@@ -46,6 +52,13 @@ namespace EloBuddyAutoQueuer
 				_MainWindow.Close();
 				_MainWindow = null;
 			}
+
+			if(WindowType == typeof(Logger))
+			{
+				_LoggerWindow.Close();
+				_LoggerWindow = null;
+			}
+
 			if (WindowType == typeof(Login))
 			{
 				_LoginWindow.Close();
@@ -56,11 +69,22 @@ namespace EloBuddyAutoQueuer
 				_AddAccountWindow.Close();
 				_AddAccountWindow = null;
 			}
+			
+		}
+
+		public bool isAnyWindowOpen()
+		{
+			if (_LoginWindow == null && _MainWindow == null && _AddAccountWindow == null)
+				return false;
+			return true;
 		}
 
 		public void ShowWindow(Type WindowType)
 		{
-			
+			if(_LoggerWindow != null)
+			{
+				Logging.Log("Opening Window of Type " + WindowType.ToString());
+			}
 			if (WindowType == null)
 				return;
 			if (WindowType == typeof(MainWindow))
@@ -78,6 +102,16 @@ namespace EloBuddyAutoQueuer
 				_AddAccountWindow = new AddAccountWindow();
 				_AddAccountWindow.Show();
 			}
+			if(WindowType == typeof(Logger))
+			{
+				_LoggerWindow = new Logger();
+				_LoggerWindow.Show();
+			}
+		}
+
+		public Logger getLoggerInstance()
+		{
+			return _LoggerWindow;
 		}
 	}
 }
