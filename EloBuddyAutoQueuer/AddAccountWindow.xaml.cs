@@ -23,5 +23,10 @@ namespace EloBuddyAutoQueuer
 		{
 			InitializeComponent();
 		}
+
+		private void AddAccount_Click()
+		{
+			
+		}
 	}
 }

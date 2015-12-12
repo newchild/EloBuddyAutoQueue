@@ -61,6 +61,9 @@
     <Compile Include="AddAccountWindow.xaml.cs">
       <DependentUpon>AddAccountWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Account.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="StaticData.cs" />
     <Compile Include="WindowHandler.cs" />
     <Page Include="AddAccountWindow.xaml">
       <SubType>Designer</SubType>
