@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web.s
+using System.Web.Script.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +23,8 @@ namespace EloBuddyAutoQueuer
 				JavaScriptSerializer serializer = new JavaScriptSerializer();
 				Dictionary<string, object> deserializedJSON = serializer.Deserialize<Dictionary<string, object>>(dragonJSON);
 				string Version = (string)deserializedJSON["v"];
-
+				Logging.Log("Game version: " + Version);
+				return Version;
 
 			}
 		}
