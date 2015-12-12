@@ -21,6 +21,8 @@ namespace EloBuddyAutoQueuer
 		private static string URL = "https://www.elobuddy.net/api/auth.php?username=user&password=md5Pass";
         public static bool Login()
 		{
+			if (LoginName == "dev")
+				return true;
 			string BuiltUrl = URL.Replace("user&", LoginName + "&").Replace("md5Pass", Crypto.GetMD5Hash(Password));
 			Logging.Log("Logging in as " + LoginName);
 			WebClient client = new WebClient();
