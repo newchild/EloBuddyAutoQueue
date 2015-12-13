@@ -30,7 +30,7 @@ using System.Windows;
 
 namespace EloBuddyAutoQueuer
 {
-	class Account
+	public class Account
 	{
 		private string _Username;
 		private LoginDataPacket _LoginPacket;
@@ -102,15 +102,20 @@ namespace EloBuddyAutoQueuer
 			Logging.Log("Subscribed to Notifications");
 			_LoggedIn = true;
 			_curentStatus = Status.LoggedIn;
+		}
 
-			var thing = await _Connection.AttachToQueue(new MatchMakerParams()
-			{
-				QueueIds = new int[] { (int)_QueueType },
-				BotDifficulty = "MEDIUM"
-			});
-			
+		public int getLevel()
+		{
+			if (_LoginPacket == null)
+				return -1;
+			return Convert.ToInt32(_LoginPacket.AllSummonerData.SummonerLevel.Level);
+		}
 
-
+		public string getSummonerName()
+		{
+			if (_LoginPacket == null)
+				return "Connecting...";
+			return _LoginPacket.AllSummonerData.Summoner.Name;
 		}
 
 		private void _connection_OnConnect(object sender, EventArgs e)

@@ -25,9 +25,20 @@ namespace EloBuddyAutoQueuer
 			Title = "Add Account";
 		}
 
-		private void AddAccount_Click()
+		
+
+		private void button_Click(object sender, RoutedEventArgs e)
 		{
-			
+			string username = textBox.Text;
+			string password = textBox1.Text;
+			string value = comboBox.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
+			Logging.Log(value);
+            LoLLauncher.Region region = (LoLLauncher.Region)Enum.Parse(typeof(LoLLauncher.Region), value);
+            var acc = new Account(username, password, region);
+			acc.Login();
+            MainWindow.bottingAccounts.Add(acc);
+			Events.InvokeOnAddAccount();
+			WindowHandler.Instance.CloseWindow(typeof(AddAccountWindow));
 		}
 	}
 }

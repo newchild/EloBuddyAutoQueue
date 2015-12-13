@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EloBuddyAutoQueuer"
         mc:Ignorable="d"
-        Title="AddAccountWindow" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+        Title="Add Account" Height="147.899" Width="324.37">
+	<Window.Resources>
+		
+	</Window.Resources>
+	<Grid>
+		<Button x:Name="button" Content="Add Account" HorizontalAlignment="Left" Margin="151,66,0,0" VerticalAlignment="Top" Width="120" Click="button_Click"/>
+		<ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="151,26,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+			<ComboBoxItem>EUW</ComboBoxItem>
+			<ComboBoxItem>EUNE</ComboBoxItem>
+			<ComboBoxItem>NA</ComboBoxItem>
+			<ComboBoxItem>TR</ComboBoxItem>
+		</ComboBox>
+		<TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="10,66,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="120"/>
+
+	</Grid>
+	
 </Window>
+	
+
