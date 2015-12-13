@@ -26,7 +26,7 @@ namespace EloBuddyAutoQueuer
 		private Logger _LoggerWindow;
 		private Login _LoginWindow;
 		private AddAccountWindow _AddAccountWindow;
-
+		private FirstRun _FirstRunWindow;
 		
 
 		
@@ -53,7 +53,13 @@ namespace EloBuddyAutoQueuer
 				_MainWindow = null;
 			}
 
-			if(WindowType == typeof(Logger))
+			if (WindowType == typeof(FirstRun))
+			{
+				_FirstRunWindow.Close();
+				_FirstRunWindow = null;
+			}
+
+			if (WindowType == typeof(Logger))
 			{
 				_LoggerWindow.Close();
 				_LoggerWindow = null;
@@ -92,6 +98,11 @@ namespace EloBuddyAutoQueuer
 				_MainWindow = new MainWindow();
 				_MainWindow.Show();
 			}
+			if (WindowType == typeof(FirstRun))
+			{
+				_FirstRunWindow = new FirstRun();
+				_FirstRunWindow.ShowDialog();
+			}
 			if (WindowType == typeof(Login))
 			{
 				_LoginWindow = new Login();
@@ -100,7 +111,7 @@ namespace EloBuddyAutoQueuer
 			if (WindowType == typeof(AddAccountWindow))
 			{
 				_AddAccountWindow = new AddAccountWindow();
-				_AddAccountWindow.Show();
+				_AddAccountWindow.ShowDialog();
 			}
 			if(WindowType == typeof(Logger))
 			{

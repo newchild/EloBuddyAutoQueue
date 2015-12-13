@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,15 @@ namespace EloBuddyAutoQueuer
 			Title = "Log In";
 			WindowHandler.Instance.setLogInWindow(this);
 			WindowHandler.Instance.ShowWindow(typeof(Logger));
-			
+			if (!File.Exists("settings.ini")){
+				WindowHandler.Instance.ShowWindow(typeof(FirstRun));
+				//WindowHandler.Instance.CloseWindow(typeof(Login));
+			}
+			else
+			{
+				Ini iniFile = new Ini("settings.ini");
+				StaticData.EBLocation = iniFile.GetValue("EBLocation");
+			}
         }
 
 		private void LogIn_Click(object sender, RoutedEventArgs e)
@@ -35,6 +44,19 @@ namespace EloBuddyAutoQueuer
 			LoginHandler.Password = Password.Password;
 			if (LoginHandler.Login())
 			{
+				Logging.Log("Patching...");
+				try
+				{
+					TempPatcher.Patch();
+					Logging.Log("Patched successfully");
+				}
+				catch(Exception er)
+				{
+					Logging.Warning("Error occured while patching. This can lead to bugs ingame, but it can also just work fine");
+					Logging.Error(er.ToString());
+				}
+				
+
 				WindowHandler.Instance.ShowWindow(typeof(MainWindow));
 				WindowHandler.Instance.CloseWindow(typeof(Login));
 			}
