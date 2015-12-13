@@ -24,8 +24,7 @@ namespace EloBuddyAutoQueuer
             InitializeComponent();
 
             Title = "EloBuddy TeamQueuer";
-            var asd = Globals.accountList;
-            foreach (var item in asd)
+            foreach (var item in Globals.accountList)
             {
                 var listbox = new ComboBox();
                 var champsNames = item.champions.Select(x => x.DisplayName);
