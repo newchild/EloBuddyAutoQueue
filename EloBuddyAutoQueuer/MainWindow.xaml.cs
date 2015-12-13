@@ -21,7 +21,7 @@ namespace EloBuddyAutoQueuer
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public static List<Account> bottingAccounts = new List<Account>();
+		
         public MainWindow()
 		{
 			InitializeComponent();
@@ -33,7 +33,7 @@ namespace EloBuddyAutoQueuer
 		private void Events_OnAddAccount()
 		{
 			List<AccountInformation> accinf = new List<AccountInformation>();
-			foreach (var user in bottingAccounts)
+			foreach (var user in Globals.accountList)
 			{
 				accinf.Add(new AccountInformation(user));
 			}

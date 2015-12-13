@@ -36,7 +36,7 @@ namespace EloBuddyAutoQueuer
             LoLLauncher.Region region = (LoLLauncher.Region)Enum.Parse(typeof(LoLLauncher.Region), value);
             var acc = new Account(username, password, region);
 			acc.Login();
-            MainWindow.bottingAccounts.Add(acc);
+            Globals.accountList.Add(acc);
 			Events.InvokeOnAddAccount();
 			WindowHandler.Instance.CloseWindow(typeof(AddAccountWindow));
 		}
