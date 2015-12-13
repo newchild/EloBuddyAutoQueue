@@ -71,17 +71,30 @@
     <Compile Include="Events.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="ItemRow.cs" />
+    <Compile Include="FirstRun.xaml.cs">
+      <DependentUpon>FirstRun.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ini.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Logger.xaml.cs">
       <DependentUpon>Logger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Patcher.cs" />
+    <Compile Include="Patcher.xaml.cs">
+      <DependentUpon>Patcher.xaml</DependentUpon>
     </Compile>
     <Compile Include="StaticData.cs" />
     <Compile Include="StaticUtils.cs" />
     <Compile Include="TeamManage.xaml.cs">
       <DependentUpon>TeamManage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VersionHandler.cs" />
     <Compile Include="WindowHandler.cs" />
     <Page Include="AddAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FirstRun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,6 +119,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TeamManage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Patcher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

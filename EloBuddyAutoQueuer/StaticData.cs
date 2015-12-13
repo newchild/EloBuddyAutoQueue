@@ -10,23 +10,7 @@ namespace EloBuddyAutoQueuer
 {
 	class StaticData
 	{
-		public static string GameVersion
-		{
-			get
-			{
-				string dragonJSON = "";
-				using (WebClient client = new WebClient())
-				{
-					dragonJSON = client.DownloadString("http://ddragon.leagueoflegends.com/realms/na.js");
-				}
-				dragonJSON = dragonJSON.Replace("Riot.DDragon.m=", "").Replace(";", "");
-				JavaScriptSerializer serializer = new JavaScriptSerializer();
-				Dictionary<string, object> deserializedJSON = serializer.Deserialize<Dictionary<string, object>>(dragonJSON);
-				string Version = (string)deserializedJSON["v"];
-				Logging.Log("Game version: " + Version);
-				return Version;
-
-			}
-		}
-	}
+		public static string EBDependencies = "https://raw.githubusercontent.com/EloBuddy/EloBuddy.Dependencies/master/dependencies.json";
+		public static string EBLocation = "";
+    }
 }

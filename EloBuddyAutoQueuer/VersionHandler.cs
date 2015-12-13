@@ -1,0 +1,83 @@
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Reflection;
+using System.Web.Script.Serialization;
+using System.IO;
+
+namespace EloBuddyAutoQueuer
+{
+	class VersionHandler
+	{
+		
+
+	
+
+		public static string GameVersion
+		{
+			get
+			{
+				string dragonJSON = "";
+				using (WebClient client = new WebClient())
+				{
+					dragonJSON = client.DownloadString("http://ddragon.leagueoflegends.com/realms/na.js");
+				}
+				dragonJSON = dragonJSON.Replace("Riot.DDragon.m=", "").Replace(";", "");
+				JavaScriptSerializer serializer = new JavaScriptSerializer();
+				Dictionary<string, object> deserializedJSON = serializer.Deserialize<Dictionary<string, object>>(dragonJSON);
+				string Version = (string)deserializedJSON["v"];
+				Logging.Log("Game version: " + Version);
+				return Version;
+			}
+		}
+		
+		private static void CopyFile(string from, string to)
+		{
+			var byteArray = File.ReadAllBytes(from);
+			File.WriteAllBytes(to, byteArray);
+		}
+
+		public static bool CopyEBFiles()
+		{
+			try
+			{
+
+				CopyFile(Path.Combine(StaticData.EBLocation, "System", "EloBuddy.Core.dll"), "EloBuddy.Core.dll");
+				CopyFile(Path.Combine(StaticData.EBLocation, "System", "EloBuddy.dll"), "EloBuddy.dll");
+				CopyFile(Path.Combine(StaticData.EBLocation, "System", "SharpDX.dll"), "SharpDX.dll");
+				CopyFile(Path.Combine(StaticData.EBLocation, "System", "EloBuddy.SDK.dll"), "EloBuddy.SDK.dll");
+				CopyFile(Path.Combine(StaticData.EBLocation, "System", "EloBuddy.Sandbox.dll"), "EloBuddy.Sandbox.dll");
+				CopyFile(Path.Combine(StaticData.EBLocation, "System", "EloBuddy.Networking.dll"), "EloBuddy.Networking.dll");
+				return true;
+			}
+			catch (Exception e)
+			{
+				Logging.Error(e.ToString());
+				return false;
+			}
+		}
+		/*
+		class PatchInfo
+		{
+			class Files
+			{
+
+			}
+		}
+
+		public static downloadEBCore(string FileHash)
+		{
+			WebClient x = new WebClient();
+            string response = "";
+			response = x.DownloadString(StaticData.EBDependencies);
+			JavaScriptSerializer serializer = new JavaScriptSerializer();
+			Dictionary<string, Dictionary<string, object>> deserializedJSON = serializer.Deserialize<Dictionary<string, Dictionary<string, object>>>(response);
+			
+		}
+		*/
+	}
+}

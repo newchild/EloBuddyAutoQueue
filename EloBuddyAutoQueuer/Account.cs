@@ -160,7 +160,7 @@ namespace EloBuddyAutoQueuer
 		public void Login()
 		{
 			Logging.Log("Connecting...");
-			_Connection.Connect(_Username, _Password, _Region, StaticData.GameVersion);
+			_Connection.Connect(_Username, _Password, _Region, VersionHandler.GameVersion);
 		}
 	}
 }
