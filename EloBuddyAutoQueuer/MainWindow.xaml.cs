@@ -25,7 +25,7 @@ namespace EloBuddyAutoQueuer
         public MainWindow()
 		{
 			InitializeComponent();
-			image.Source = StaticUtils.GetImageStream(LoginHandler.profilePicture);
+			//image.Source = StaticUtils.GetImageStream(LoginHandler.profilePicture);
 			Title = "EloBuddy AutoQueuer";
 			Events.OnAddAccount += Events_OnAddAccount;
 		}
@@ -59,5 +59,11 @@ namespace EloBuddyAutoQueuer
 		{
 			WindowHandler._Instance.ShowWindow(typeof(AddAccountWindow));
 		}
-	}
+
+        private void team_Click(object sender, RoutedEventArgs e)
+        {
+            var teamWindow = new TeamManage();
+            teamWindow.Show();
+        }
+    }
 }

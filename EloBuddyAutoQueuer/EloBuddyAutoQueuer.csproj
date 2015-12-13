@@ -69,12 +69,17 @@
     <Compile Include="Crypto.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="ItemRow.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Logger.xaml.cs">
       <DependentUpon>Logger.xaml</DependentUpon>
     </Compile>
     <Compile Include="StaticData.cs" />
     <Compile Include="StaticUtils.cs" />
+    <Compile Include="TeamManage.xaml.cs">
+      <DependentUpon>TeamManage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowHandler.cs" />
     <Page Include="AddAccountWindow.xaml">
       <SubType>Designer</SubType>
@@ -97,6 +102,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TeamManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,7 +143,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Desktop\PvPNETConnect\PVPNetConnect.csproj">
+    <ProjectReference Include="..\PvPNETConnect\PVPNetConnect.csproj">
       <Project>{93dcbebf-c652-40ed-a003-cff421f68b4f}</Project>
       <Name>PVPNetConnect</Name>
     </ProjectReference>

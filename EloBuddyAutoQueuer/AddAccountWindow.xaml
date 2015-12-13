@@ -13,7 +13,7 @@
 		<Button x:Name="button" Content="Add Account" HorizontalAlignment="Left" Margin="151,66,0,0" VerticalAlignment="Top" Width="120" Click="button_Click"/>
 		<ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="151,26,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
 			<ComboBoxItem>EUW</ComboBoxItem>
-			<ComboBoxItem>EUNE</ComboBoxItem>
+			<ComboBoxItem>EUN</ComboBoxItem>
 			<ComboBoxItem>NA</ComboBoxItem>
 			<ComboBoxItem>TR</ComboBoxItem>
 		</ComboBox>

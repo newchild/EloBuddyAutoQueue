@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:EloBuddyAutoQueuer"
         mc:Ignorable="d"
         Title="Logger" Height="300" Width="300">
-	<Grid>
-		<RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="249" Margin="10,10,0,0" VerticalAlignment="Top" Width="272" IsReadOnly="True">
-			<FlowDocument>
-				<Paragraph>
-					<Run Text=""/>
-				</Paragraph>
-			</FlowDocument>
-		</RichTextBox>
-	</Grid>
+    <Grid>
+        <RichTextBox x:Name="richTextBox" Margin="10" IsReadOnly="True">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+    </Grid>
 </Window>

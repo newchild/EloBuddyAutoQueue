@@ -26,7 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
+using System.Text.RegularExpressions;
 
 namespace EloBuddyAutoQueuer
 {
@@ -44,12 +44,11 @@ namespace EloBuddyAutoQueuer
 		private bool _inQueue;
 		private Status _curentStatus;
 		private SearchingForMatchNotification _GameSearchNotification;
+        public bool ready;
 
-		
-				
-	
+        public ChampionDTO[] champions { get; private set; }
 
-		public Account(string Username, string Password, Region region, QueueTypes queue = QueueTypes.MEDIUM_BOT)
+        public Account(string Username, string Password, Region region, QueueTypes queue = QueueTypes.MEDIUM_BOT)
 		{
 			_curentStatus = Status.Disconnected;
 			_inQueue = false;
@@ -102,7 +101,26 @@ namespace EloBuddyAutoQueuer
 			Logging.Log("Subscribed to Notifications");
 			_LoggedIn = true;
 			_curentStatus = Status.LoggedIn;
-		}
+            champions = await _Connection.GetAvailableChampions();
+            Globals.accountList.Add(this);
+            /*
+            var queues = await _Connection.GetAvailableQueues();
+            var botQueues = queues.Where(x => x.Type.Contains("BOT"));
+            var botqueue = botQueues.ToArray()[2];
+            var id = botqueue.Id;
+            var parameters = new MatchMakerParams
+            {
+                QueueIds = new[]
+                        {
+            
+                            Convert.ToInt32(id)
+                        },
+                BotDifficulty = "EASY"
+            };
+            
+            var asdf = await _Connection.AttachToQueue(parameters);
+            */
+        }
 
 		public int getLevel()
 		{
@@ -122,7 +140,7 @@ namespace EloBuddyAutoQueuer
 		{
 			Logging.Log(_Username + " connected");
 			_Connected = true;
-		}
+        }
 
 		public bool isLoggedIn()
 		{
@@ -143,8 +161,6 @@ namespace EloBuddyAutoQueuer
 		{
 			Logging.Log("Connecting...");
 			_Connection.Connect(_Username, _Password, _Region, StaticData.GameVersion);
-			
-			
 		}
 	}
 }
