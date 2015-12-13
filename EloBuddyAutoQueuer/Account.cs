@@ -1,31 +1,32 @@
-﻿using PVPNetConnect;
-using PVPNetConnect.RiotObjects.Platform.Catalog.Champion;
-using PVPNetConnect.RiotObjects.Platform.Clientfacade.Domain;
-using PVPNetConnect.RiotObjects.Platform.Game;
-using PVPNetConnect.RiotObjects.Platform.Game.Message;
-using PVPNetConnect.RiotObjects.Platform.Matchmaking;
-using PVPNetConnect.RiotObjects.Platform.Statistics;
-using PVPNetConnect.RiotObjects;
-using PVPNetConnect.RiotObjects.Leagues.Pojo;
-using PVPNetConnect.RiotObjects.Platform.Game.Practice;
-using PVPNetConnect.RiotObjects.Platform.Harassment;
-using PVPNetConnect.RiotObjects.Platform.Leagues.Client.Dto;
-using PVPNetConnect.RiotObjects.Platform.Login;
-using PVPNetConnect.RiotObjects.Platform.Reroll.Pojo;
-using PVPNetConnect.RiotObjects.Platform.Statistics.Team;
-using PVPNetConnect.RiotObjects.Platform.Summoner;
-using PVPNetConnect.RiotObjects.Platform.Summoner.Boost;
-using PVPNetConnect.RiotObjects.Platform.Summoner.Masterybook;
-using PVPNetConnect.RiotObjects.Platform.Summoner.Runes;
-using PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook;
-using PVPNetConnect.RiotObjects.Team;
-using PVPNetConnect.RiotObjects.Team.Dto;
+﻿using LoLLauncher;
+using LoLLauncher.RiotObjects.Platform.Catalog.Champion;
+using LoLLauncher.RiotObjects.Platform.Clientfacade.Domain;
+using LoLLauncher.RiotObjects.Platform.Game;
+using LoLLauncher.RiotObjects.Platform.Game.Message;
+using LoLLauncher.RiotObjects.Platform.Matchmaking;
+using LoLLauncher.RiotObjects.Platform.Statistics;
+using LoLLauncher.RiotObjects;
+using LoLLauncher.RiotObjects.Leagues.Pojo;
+using LoLLauncher.RiotObjects.Platform.Game.Practice;
+using LoLLauncher.RiotObjects.Platform.Harassment;
+using LoLLauncher.RiotObjects.Platform.Leagues.Client.Dto;
+using LoLLauncher.RiotObjects.Platform.Login;
+using LoLLauncher.RiotObjects.Platform.Reroll.Pojo;
+using LoLLauncher.RiotObjects.Platform.Statistics.Team;
+using LoLLauncher.RiotObjects.Platform.Summoner;
+using LoLLauncher.RiotObjects.Platform.Summoner.Boost;
+using LoLLauncher.RiotObjects.Platform.Summoner.Masterybook;
+using LoLLauncher.RiotObjects.Platform.Summoner.Runes;
+using LoLLauncher.RiotObjects.Platform.Summoner.Spellbook;
+using LoLLauncher.RiotObjects.Team;
+using LoLLauncher.RiotObjects.Team.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 
 namespace EloBuddyAutoQueuer
 {
@@ -35,11 +36,11 @@ namespace EloBuddyAutoQueuer
 		private LoginDataPacket _LoginPacket;
 		private string _Password;
 		private Region _Region;
-		private PVPNetConnection _Connection;
+		private LoLConnection _Connection;
 		private int _LoginQueueCount;
 		private bool _Connected;
 		private bool _LoggedIn;
-		private QueueType _QueueType;
+		private QueueTypes _QueueType;
 		private bool _inQueue;
 		private Status _curentStatus;
 		private SearchingForMatchNotification _GameSearchNotification;
@@ -48,7 +49,7 @@ namespace EloBuddyAutoQueuer
 				
 	
 
-		public Account(string Username, string Password, Region region, QueueType queue = QueueType.Bot)
+		public Account(string Username, string Password, Region region, QueueTypes queue = QueueTypes.MEDIUM_BOT)
 		{
 			_curentStatus = Status.Disconnected;
 			_inQueue = false;
@@ -57,7 +58,7 @@ namespace EloBuddyAutoQueuer
 			_Username = Username;
 			_Password = Password;
 			_Region = region;
-			_Connection = new PVPNetConnection();
+			_Connection = new LoLConnection();
 			_Connection.OnConnect += _connection_OnConnect;
 			_Connection.OnLogin += _connection_OnLogin;
 			_Connection.OnLoginQueueUpdate += _connection_OnLoginQueueUpdate;
@@ -66,7 +67,7 @@ namespace EloBuddyAutoQueuer
 			_Connection.OnMessageReceived += _Connection_OnMessageReceived;
 		}
 
-		private async void _Connection_OnMessageReceived(object sender, object message)
+		private void _Connection_OnMessageReceived(object sender, object message)
 		{
 			Logging.Log("Message received: " + message.ToString());
 		}
@@ -101,6 +102,15 @@ namespace EloBuddyAutoQueuer
 			Logging.Log("Subscribed to Notifications");
 			_LoggedIn = true;
 			_curentStatus = Status.LoggedIn;
+
+			var thing = await _Connection.AttachToQueue(new MatchMakerParams()
+			{
+				QueueIds = new int[] { (int)_QueueType },
+				BotDifficulty = "MEDIUM"
+			});
+			
+
+
 		}
 
 		private void _connection_OnConnect(object sender, EventArgs e)
@@ -124,7 +134,7 @@ namespace EloBuddyAutoQueuer
 			return _LoginQueueCount;
 		}
 
-		public async void Login()
+		public void Login()
 		{
 			Logging.Log("Connecting...");
 			_Connection.Connect(_Username, _Password, _Region, StaticData.GameVersion);

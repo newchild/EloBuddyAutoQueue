@@ -133,7 +133,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PVPNetConnect\PVPNetConnect.csproj">
+    <ProjectReference Include="..\..\..\..\Desktop\PvPNETConnect\PVPNetConnect.csproj">
       <Project>{93dcbebf-c652-40ed-a003-cff421f68b4f}</Project>
       <Name>PVPNetConnect</Name>
     </ProjectReference>

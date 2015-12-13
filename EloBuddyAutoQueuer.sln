@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EloBuddyAutoQueuer", "EloBuddyAutoQueuer\EloBuddyAutoQueuer.csproj", "{F0F0CAA8-3DBF-404D-997D-E140911CE283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVPNetConnect", "PVPNetConnect\PVPNetConnect.csproj", "{93DCBEBF-C652-40ED-A003-CFF421F68B4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVPNetConnect", "..\..\..\Desktop\PvPNETConnect\PVPNetConnect.csproj", "{93DCBEBF-C652-40ED-A003-CFF421F68B4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
