@@ -1,13 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Team;
 
-namespace PVPNetConnect.RiotObjects.Team.Stats
+namespace LoLLauncher.RiotObjects.Team.Stats
 {
+
     public class TeamStatSummary : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.team.stats.TeamStatSummary";
@@ -40,9 +47,10 @@ namespace PVPNetConnect.RiotObjects.Team.Stats
         public List<TeamStatDetail> TeamStatDetails { get; set; }
 
         [InternalName("teamIdString")]
-        public string TeamIdString { get; set; }
+        public String TeamIdString { get; set; }
 
         [InternalName("teamId")]
         public TeamId TeamId { get; set; }
+
     }
 }

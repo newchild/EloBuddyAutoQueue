@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Team.Dto
+namespace LoLLauncher.RiotObjects.Team.Dto
 {
+
     public class RosterDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.team.dto.RosterDTO";
@@ -37,9 +43,10 @@ namespace PVPNetConnect.RiotObjects.Team.Dto
         }
 
         [InternalName("ownerId")]
-        public double OwnerId { get; set; }
+        public Double OwnerId { get; set; }
 
         [InternalName("memberList")]
         public List<TeamMemberInfoDTO> MemberList { get; set; }
+
     }
 }

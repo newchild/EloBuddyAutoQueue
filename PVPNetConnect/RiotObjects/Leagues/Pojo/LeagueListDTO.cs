@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Leagues.Pojo
+namespace LoLLauncher.RiotObjects.Leagues.Pojo
 {
+
     public class LeagueListDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.leagues.pojo.LeagueListDTO";
@@ -37,21 +43,22 @@ namespace PVPNetConnect.RiotObjects.Leagues.Pojo
         }
 
         [InternalName("queue")]
-        public string Queue { get; set; }
+        public String Queue { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [InternalName("tier")]
-        public string Tier { get; set; }
+        public String Tier { get; set; }
 
         [InternalName("requestorsRank")]
-        public string RequestorsRank { get; set; }
+        public String RequestorsRank { get; set; }
 
         [InternalName("entries")]
         public List<LeagueItemDTO> Entries { get; set; }
 
         [InternalName("requestorsName")]
-        public string RequestorsName { get; set; }
+        public String RequestorsName { get; set; }
+
     }
 }

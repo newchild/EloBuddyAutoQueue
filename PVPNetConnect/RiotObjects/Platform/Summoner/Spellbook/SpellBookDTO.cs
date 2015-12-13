@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Spellbook
 {
+
     public class SpellBookDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.spellbook.SpellBookDTO";
@@ -36,9 +42,6 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook
             callback(this);
         }
 
-        [InternalName("defaultPage")]
-        public SpellBookPageDTO DefaultPage { get; set; }
-
         [InternalName("bookPagesJson")]
         public object BookPagesJson { get; set; }
 
@@ -46,9 +49,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook
         public List<SpellBookPageDTO> BookPages { get; set; }
 
         [InternalName("dateString")]
-        public string DateString { get; set; }
+        public String DateString { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

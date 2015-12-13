@@ -1,13 +1,20 @@
-using PVPNetConnect.RiotObjects.Leagues.Pojo;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Leagues.Pojo;
 
-namespace PVPNetConnect.RiotObjects.Platform.Leagues.Client.Dto
+namespace LoLLauncher.RiotObjects.Platform.Leagues.Client.Dto
 {
+
     public class SummonerLeagueItemsDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.leagues.client.dto.SummonerLeagueItemsDTO";
@@ -38,5 +45,6 @@ namespace PVPNetConnect.RiotObjects.Platform.Leagues.Client.Dto
 
         [InternalName("summonerLeagues")]
         public List<LeagueItemDTO> SummonerLeagues { get; set; }
+
     }
 }

@@ -1,13 +1,20 @@
-using PVPNetConnect.RiotObjects.Platform.Catalog.Runes;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Catalog.Runes;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner
+namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
+
     public class RuneSlot : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.RuneSlot";
@@ -37,12 +44,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner
         }
 
         [InternalName("id")]
-        public int Id { get; set; }
+        public Int32 Id { get; set; }
 
         [InternalName("minLevel")]
-        public int MinLevel { get; set; }
+        public Int32 MinLevel { get; set; }
 
         [InternalName("runeType")]
         public RuneType RuneType { get; set; }
+
     }
 }

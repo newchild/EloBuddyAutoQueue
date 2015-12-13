@@ -1,6 +1,6 @@
-using PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook;
+using LoLLauncher.RiotObjects.Platform.Summoner.Spellbook;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner
+namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
     public class AllPublicSummonerDataDTO : RiotGamesObject
     {

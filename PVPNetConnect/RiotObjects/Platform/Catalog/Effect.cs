@@ -1,13 +1,20 @@
-using PVPNetConnect.RiotObjects.Platform.Catalog.Runes;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Catalog.Runes;
 
-namespace PVPNetConnect.RiotObjects.Platform.Catalog
+namespace LoLLauncher.RiotObjects.Platform.Catalog
 {
+
     public class Effect : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.catalog.Effect";
@@ -37,18 +44,19 @@ namespace PVPNetConnect.RiotObjects.Platform.Catalog
         }
 
         [InternalName("effectId")]
-        public int EffectId { get; set; }
+        public Int32 EffectId { get; set; }
 
         [InternalName("gameCode")]
-        public string GameCode { get; set; }
+        public String GameCode { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [InternalName("categoryId")]
         public object CategoryId { get; set; }
 
         [InternalName("runeType")]
         public RuneType RuneType { get; set; }
+
     }
 }

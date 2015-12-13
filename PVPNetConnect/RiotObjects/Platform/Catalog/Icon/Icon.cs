@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PVPNetConnect.RiotObjects.Platform.Catalog.Icon
+namespace LoLLauncher.RiotObjects.Platform.Catalog.Icon
 {
     public class Icon : RiotGamesObject
     {
@@ -39,9 +39,9 @@ namespace PVPNetConnect.RiotObjects.Platform.Catalog.Icon
         public DateTime PurchaseDate { get; set; }
 
         [InternalName("iconId")]
-        public double IconId { get; set; }
+        public Double IconId { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
     }
 }

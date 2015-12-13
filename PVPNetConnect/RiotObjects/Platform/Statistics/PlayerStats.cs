@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class PlayerStats : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.PlayerStats";
@@ -40,9 +46,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         public List<TimeTrackedStat> TimeTrackedStats { get; set; }
 
         [InternalName("promoGamesPlayed")]
-        public int PromoGamesPlayed { get; set; }
+        public Int32 PromoGamesPlayed { get; set; }
 
         [InternalName("promoGamesPlayedLastUpdated")]
         public object PromoGamesPlayedLastUpdated { get; set; }
+
     }
 }

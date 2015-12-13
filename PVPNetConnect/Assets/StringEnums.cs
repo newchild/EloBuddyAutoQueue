@@ -1,22 +1,59 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Reflection;
 
-namespace PVPNetConnect
+namespace LoLLauncher
 {
+    [Flags]
+    public enum GuiState
+    {
+        None = 1,
+        LoggedOut = 1 << 1,
+        LoggingIn = 1 << 2,
+        LoggedIn = 1 << 3,
+        CustomSearchGame = 1 << 4,
+        CustomCreateGame = 1 << 5,
+        GameLobby = 1 << 6
+    }
+    [Flags]
+    public enum GameLobbyGuiState
+    {
+        IDLE = 1,
+        TEAM_SELECT = 1 << 1,
+        CHAMP_SELECT = 1 << 2,
+        POST_CHAMP_SELECT = 1 << 3,
+        PRE_CHAMP_SELECT = 1 << 4,
+        START_REQUESTED = 1 << 5,
+        GAME_START_CLIENT = 1 << 6,
+        GameClientConnectedToServer = 1 << 7,
+        IN_PROGRESS = 1 << 8,
+        IN_QUEUE = 1 << 9,
+        POST_GAME = 1 << 10,
+        TERMINATED = 1 << 11,
+        TERMINATED_IN_ERROR = 1 << 12,
+        CHAMP_SELECT_CLIENT = 1 << 13,
+        GameReconnect = 1 << 14,
+        GAME_IN_PROGRESS = 1 << 15,
+        JOINING_CHAMP_SELECT = 1 << 16, 
+        DISCONNECTED = 1 << 17
+    }
     /// <summary>
     /// Game Modes enumerator.
     /// </summary>
     public enum GameMode
     {
         [StringValue("CLASSIC")]
-        Classic,
-
+        SummonersRift = 1,
+        //[StringValue("ARAM")]
+        //ProvingGrounds = 7,
         [StringValue("ODIN")]
-        Dominion,
-
+        Dominion = 8,
+        [StringValue("CLASSIC")]
+        TwistedTreeline = 10,
         [StringValue("ARAM")]
-        Aram,
-
+        HowlingAbyss = 12,
         [StringValue("TUTORIAL")]
         Tutorial,
     }
@@ -50,9 +87,6 @@ namespace PVPNetConnect
         [StringValue("NORMAL_GAME")]
         NormalGame,
 
-        [StringValue("GROUPFINDER")]
-        TeamBuilder,
-
         [StringValue("CUSTOM_GAME")]
         CustomGame,
 
@@ -71,75 +105,69 @@ namespace PVPNetConnect
         [StringValue("RANKED_GAME_PREMADE")]
         RankedGamePremade
     }
-
+    public enum CustomGameTypes
+    {
+        [StringValue("unknown")]
+        Unknown1,
+        [StringValue("Blind Pick")]
+        BlindPick,
+        [StringValue("Draft")]
+        Draft,
+        [StringValue("No Ban Draft")]
+        NoBanDraft,
+        [StringValue("AllRandom")]
+        AllRandom,
+        [StringValue("Tournament Draft")]
+        TournamentDraft,
+        [StringValue("Blind Draft")]
+        BlindDraft,
+        [StringValue("unknown")]
+        Unknown2,
+        [StringValue("unknown")]
+        Unknown3,
+        [StringValue("Tutorial")]
+        Tutorial,
+        [StringValue("Battle Training")]
+        BattleTraining,
+        [StringValue("Bugged Blind Pick")]
+        BuggedBlindPick,
+        [StringValue("Blind Random")]
+        BlindRandom,
+        [StringValue("Blind Duplicate")]
+        BlindDuplicate
+    }
     /// <summary>
     /// Queue types Enumeartor.
     /// </summary>
-    public enum QueueType
+    /// 
+    public class QueueTypes2
     {
-        [StringValue("GROUPFINDER")]
-        TeamBuilder,
-
-        [StringValue("RANKED_TEAM3x3")]
-        RankedTeam3x3,
-
-        [StringValue("RANKED_SOLO_3x3")]
-        RankedSolo3x3,
-
-        [StringValue("RANKED_SOLO_5x5")]
-        RankedSolo5x5,
-
-        [StringValue("RANKED_TEAM_5x5")]
-        RankedTeam5x5,
-
-        [StringValue("ODIN_UNRANKED")]
-        DominionUnranked,
-
-        [StringValue("RANKED_PREMADE_3x3")]
-        RankedPremade3x3,
-
-        [StringValue("NORMAL_3x3")]
-        Normal3x3,
-
-        [StringValue("RANKED_PREMADE_5x5")]
-        RankedPremade5x5,
-
-        [StringValue("ODIN_RANKED_PREMADE")]
-        DominionRankedPremade,
-
-        [StringValue("BOT_3x3")]
-        Bot3x3,
-
-        [StringValue("ODIN_RANKED_SOLO")]
-        DominionRankedSolo,
-
-        [StringValue("NORMAL")]
-        Normal,
-
-        [StringValue("BOT")]
-        Bot,
-
-        [StringValue("ARAM_UNRANKED_1x1")]
-        AramUnranked1x1,
-
-        [StringValue("ARAM_UNRANKED_3x3")]
-        AramUnranked3x3,
-
-        [StringValue("NONE")]
-        None,
-
-        [StringValue("ARAM_UNRANKED_5x5")]
-        AramUnranked5x5,
-
-        [StringValue("ARAM_UNRANKED_2x2")]
-        AramUnranked2x2,
-
-        [StringValue("ARAM_UNRANKED_6x6")]
-        AramUnranked6x6,
-
-        [StringValue("RANKED_SOLO_1x1")]
-        RankedSolo1x1,
-		
+        public Dictionary<String, Int32> dict = new Dictionary<String, Int32>()
+        {
+            {"NORMAL-5x5", 2},
+            {"RANKED_SOLO-5x5", 4},
+            {"BOT-5x5", 7},
+            {"NORMAL-3x3", 8},
+            {"NORMAL-5x5-draft", 14},
+            {"ODIN-5x5", 16},
+            {"ODIN-5x5-draft", 17},
+            {"ODINBOT-5x5", 25},
+            {"RANKED_TEAM-3x3", 41},
+            {"RANKED_TEAM-5x5", 42},
+            {"BOT_TT-3x3", 52},
+            {"ARAM-5x5", 65}
+        };
+    }
+    public enum QueueTypes
+    {
+        NORMAL_5x5 = 2,
+        NORMAL_3x3 = 8,
+        DOMINION = 16,
+        INTRO_BOT = 31,
+        BEGINNER_BOT = 32,
+        MEDIUM_BOT = 33,
+        ARAM = 65,
+        CUSTOM = 999
     }
 
     public enum AllowSpectators
@@ -158,9 +186,9 @@ namespace PVPNetConnect
     }
 
     /// <summary>
-    /// The stringEnum value with GetStringValue method
+    /// The StringEnum value with GetStringValue method
     /// </summary>
-    public static class stringEnum
+    public static class StringEnum
     {
         /// <summary>
         /// Gets the string value from Atrribute.
@@ -174,14 +202,14 @@ namespace PVPNetConnect
 
             //Check first in our cached results...
 
-            //Look for our 'StringValueAttribute'
+            //Look for our 'StringValueAttribute' 
 
             //in the field's custom attributes
 
             FieldInfo fi = type.GetField(value.ToString());
             StringValue[] attrs =
-                fi.GetCustomAttributes(typeof(StringValue),
-                    false) as StringValue[];
+               fi.GetCustomAttributes(typeof(StringValue),
+                                       false) as StringValue[];
             if (attrs.Length > 0)
             {
                 output = attrs[0].Value;

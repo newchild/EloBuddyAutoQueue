@@ -1,12 +1,20 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Game;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game.Practice
+namespace LoLLauncher.RiotObjects.Platform.Game.Practice
 {
+
     public class PracticeGameSearchResult : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.practice.PracticeGameSearchResult";
@@ -36,7 +44,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Game.Practice
         }
 
         [InternalName("spectatorCount")]
-        public int SpectatorCount { get; set; }
+        public Int32 SpectatorCount { get; set; }
 
         [InternalName("glmGameId")]
         public object GlmGameId { get; set; }
@@ -45,42 +53,42 @@ namespace PVPNetConnect.RiotObjects.Platform.Game.Practice
         public object GlmHost { get; set; }
 
         [InternalName("glmPort")]
-        public int GlmPort { get; set; }
+        public Int32 GlmPort { get; set; }
 
         [InternalName("gameModeString")]
-        public string GameModeString { get; set; }
+        public String GameModeString { get; set; }
 
         [InternalName("allowSpectators")]
-        public string AllowSpectators { get; set; }
+        public String AllowSpectators { get; set; }
 
         [InternalName("gameMapId")]
-        public int GameMapId { get; set; }
+        public Int32 GameMapId { get; set; }
 
         [InternalName("maxNumPlayers")]
-        public int MaxNumPlayers { get; set; }
+        public Int32 MaxNumPlayers { get; set; }
 
         [InternalName("glmSecurePort")]
-        public int GlmSecurePort { get; set; }
+        public Int32 GlmSecurePort { get; set; }
 
         [InternalName("gameMode")]
-        public string GameMode { get; set; }
+        public String GameMode { get; set; }
 
         [InternalName("id")]
-        public double Id { get; set; }
+        public Double Id { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [InternalName("privateGame")]
-        public bool PrivateGame { get; set; }
+        public Boolean PrivateGame { get; set; }
 
         [InternalName("owner")]
         public PlayerParticipant Owner { get; set; }
 
         [InternalName("team1Count")]
-        public int Team1Count { get; set; }
+        public Int32 Team1Count { get; set; }
 
         [InternalName("team2Count")]
-        public int Team2Count { get; set; }
+        public Int32 Team2Count { get; set; }
     }
 }

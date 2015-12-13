@@ -1,49 +1,30 @@
-﻿/**
- * A very basic RTMPS client
- *
- * @author Gabriel Van Eyck
- */
-/////////////////////////////////////////////////////////////////////////////////
-//
-//Ported to C# by Ryan A. LaSarre
-//
-/////////////////////////////////////////////////////////////////////////////////
-
-using PVPNetConnect.RiotObjects;
-using PVPNetConnect.RiotObjects.Platform.Broadcast;
-using PVPNetConnect.RiotObjects.Platform.Game;
-using PVPNetConnect.RiotObjects.Platform.Game.Message;
-using PVPNetConnect.RiotObjects.Platform.Gameinvite.Contract;
-using PVPNetConnect.RiotObjects.Platform.Harassment;
-using PVPNetConnect.RiotObjects.Platform.Matchmaking;
-using PVPNetConnect.RiotObjects.Platform.Messaging;
-using PVPNetConnect.RiotObjects.Platform.ServiceProxy.Dispatch;
-using PVPNetConnect.RiotObjects.Platform.Statistics;
-using PVPNetConnect.RiotObjects.Platform.Trade;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using System.Web;
 using System.Web.Script.Serialization;
+using System.Threading.Tasks;
 
-namespace PVPNetConnect
+using LoLLauncher.RiotObjects;
+using LoLLauncher.RiotObjects.Platform.Game;
+using LoLLauncher.RiotObjects.Platform.Game.Message;
+using LoLLauncher.RiotObjects.Platform.Matchmaking;
+using LoLLauncher.RiotObjects.Platform.Messaging;
+
+namespace LoLLauncher
 {
-    public partial class PVPNetConnection
+    public partial class LoLConnection
     {
-        public bool KeepDelegatesOnLogout = true;
-
         #region Member Declarations
 
         //RTMPS Connection Info
         private bool isConnected = false;
-
         private bool isLoggedIn = false;
         private TcpClient client;
         private SslStream sslStream;
@@ -55,7 +36,6 @@ namespace PVPNetConnect
 
         //Initial Login Information
         private string user;
-
         private string password;
         private string server;
         private string loginQueue;
@@ -64,13 +44,11 @@ namespace PVPNetConnect
 
         /** Garena information */
         private bool useGarena = false;
-        public string garenaToken;
-        public string userID;
-        public string Gas;
+        private string garenaToken;
+        private string userID;
 
         //Invoke Variables
         private Random rand = new Random();
-
         private JavaScriptSerializer serializer = new JavaScriptSerializer();
 
         private int invokeID = 2;
@@ -78,90 +56,52 @@ namespace PVPNetConnect
         private List<int> pendingInvokes = new List<int>();
         private Dictionary<int, TypedObject> results = new Dictionary<int, TypedObject>();
         private Dictionary<int, RiotGamesObject> callbacks = new Dictionary<int, RiotGamesObject>();
-        private Thread decodeThread;
+        public Thread decodeThread;
 
         private int heartbeatCount = 1;
-        private Thread heartbeatThread;
+        public Thread heartbeatThread;
+        private Object isInvokingLock = new Object();
 
-        #endregion Member Declarations
+        #endregion
 
         #region Event Handlers
 
         public delegate void OnConnectHandler(object sender, EventArgs e);
-
         public event OnConnectHandler OnConnect;
 
         public delegate void OnLoginQueueUpdateHandler(object sender, int positionInLine);
-
         public event OnLoginQueueUpdateHandler OnLoginQueueUpdate;
 
         public delegate void OnLoginHandler(object sender, string username, string ipAddress);
-
         public event OnLoginHandler OnLogin;
 
         public delegate void OnDisconnectHandler(object sender, EventArgs e);
-
         public event OnDisconnectHandler OnDisconnect;
 
         public delegate void OnMessageReceivedHandler(object sender, object message);
-
         public event OnMessageReceivedHandler OnMessageReceived;
 
         public delegate void OnErrorHandler(object sender, Error error);
-
         public event OnErrorHandler OnError;
 
-        #endregion Event Handlers
+        #endregion
 
         #region Connect, Login, and Heartbeat Methods
-        public string getGas()
+
+        public void Connect(string user, string password, Region region, string clientVersion)
         {
-
-            string begin = "{\"signature\":\"";
-            string end = "}";
-
-            int beginIndex = Gas.IndexOf(begin, StringComparison.Ordinal);
-            int endIndex = Gas.LastIndexOf(end, StringComparison.Ordinal);
-
-            string output = Gas.Substring(beginIndex, endIndex - beginIndex);
-
-            byte[] encbuff = Encoding.UTF8.GetBytes(output);
-            output = HttpServerUtility.UrlTokenEncode(encbuff);
-
-            return output;
-        }
-
-        public string getUID()
-        {
-            return userID;
-        }
-
-        public void Connect(string user, string password, Region region, string clientVersion, bool cs = false, string Server = null, string Loginqueue = null, string Locales = null)
-        {
-            if (isConnected)
+            if (!isConnected)
             {
-                return;
-            }
-            var t = new Thread(
-                () =>
+                Thread t = new Thread(() =>
                 {
                     this.user = user;
                     this.password = password;
                     this.clientVersion = clientVersion;
                     //this.server = "127.0.0.1";
-                    server = RegionInfo.GetServerValue(region);
-                    loginQueue = RegionInfo.GetLoginQueueValue(region);
-                    locale = RegionInfo.GetLocaleValue(region);
-                    useGarena = RegionInfo.GetUseGarenaValue(region);
-
-                    if (cs && Server != null && Loginqueue != null && Locales != null)
-                    {
-                        server = Server;
-                        loginQueue = Loginqueue;
-                        locale = Locales;
-                        useGarena = false;
-                    }
-
+                    this.server = RegionInfo.GetServerValue(region);
+                    this.loginQueue = RegionInfo.GetLoginQueueValue(region);
+                    this.locale = RegionInfo.GetLocaleValue(region);
+                    this.useGarena = RegionInfo.GetUseGarenaValue(region);
 
                     //Sets up our sslStream to riots servers
                     try
@@ -177,21 +117,15 @@ namespace PVPNetConnect
 
                     //Check for riot webserver status
                     //along with gettin out Auth Key that we need for the login process.
-                    /*
                     if (useGarena)
-                        if (!GetGarenaToken(RegionInfo.GetGarenaAuthServerValue(region)))
+                        if (!GetGarenaToken())
                             return;
-                    //*/
 
                     if (!GetAuthKey())
-                    {
                         return;
-                    }
 
                     if (!GetIpAddress())
-                    {
                         return;
-                    }
 
                     sslStream = new SslStream(client.GetStream(), false, AcceptAllCertificates);
                     var ar = sslStream.BeginAuthenticateAsClient(server, null, null);
@@ -204,39 +138,117 @@ namespace PVPNetConnect
                     }
 
                     if (!Handshake())
-                    {
                         return;
-                    }
 
                     BeginReceive();
 
                     if (!SendConnect())
-                    {
                         return;
-                    }
 
                     if (!Login())
-                    {
                         return;
-                    }
-
                     StartHeartbeat();
-                }) { IsBackground = true };
-            t.Start();
+                });
+
+                t.Start();
+            }
         }
 
-        private static bool AcceptAllCertificates(object sender, X509Certificate certificate, X509Chain chain,
-            SslPolicyErrors sslPolicyErrors)
+        private bool AcceptAllCertificates(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }
-        private static string reToken(string s)
-        {
-            var s1 = s.Replace("/", "%2F");
-            s1 = s1.Replace("+", "%2B");
-            s1 = s1.Replace("=", "%3D");
 
-            return s1;
+        private bool GetGarenaToken()
+        {
+            /*
+            try
+            {
+                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+
+                //GET OUR USER ID
+                List<byte> userIdRequestBytes = new List<byte>();
+
+                byte[] junk = new byte[] { 0x49, 0x00, 0x00, 0x00, 0x10, 0x01, 0x00, 0x79, 0x2f };
+                userIdRequestBytes.AddRange(junk);
+                userIdRequestBytes.AddRange(encoding.GetBytes(user));
+                for (int i = 0; i < 16; i++)
+                    userIdRequestBytes.Add(0x00);
+
+                System.Security.Cryptography.MD5 md5Cryp = System.Security.Cryptography.MD5.Create();
+                byte[] inputBytes = encoding.GetBytes(password);
+                byte[] md5 = md5Cryp.ComputeHash(inputBytes);
+
+                foreach (byte b in md5)
+                    userIdRequestBytes.AddRange(encoding.GetBytes(String.Format("%02x", b)));
+
+                userIdRequestBytes.Add(0x00);
+                userIdRequestBytes.Add(0x01);
+                junk = new byte[] { 0xD4, 0xAE, 0x52, 0xC0, 0x2E, 0xBA, 0x72, 0x03 };
+                userIdRequestBytes.AddRange(junk);
+
+                int timestamp = (int)(DateTime.UtcNow.TimeOfDay.TotalMilliseconds / 1000);
+                for (int i = 0; i < 4; i++)
+                    userIdRequestBytes.Add((byte)((timestamp >> (8 * i)) & 0xFF));
+
+                userIdRequestBytes.Add(0x00);
+                userIdRequestBytes.AddRange(encoding.GetBytes("intl"));
+                userIdRequestBytes.Add(0x00);
+
+                byte[] userIdBytes = userIdRequestBytes.ToArray();
+
+                TcpClient client = new TcpClient("203.117.158.170", 9100);
+                client.GetStream().Write(userIdBytes, 0, userIdBytes.Length);
+                client.GetStream().Flush();
+
+                int id = 0;
+                for (int i = 0; i < 4; i++)
+                    id += client.GetStream().ReadByte() * (1 << (8 * i));
+
+                userID = Convert.ToString(id);
+
+
+                //GET TOKEN
+                List<byte> tokenRequestBytes = new List<byte>();
+                junk = new byte[] { 0x32, 0x00, 0x00, 0x00, 0x01, 0x03, 0x80, 0x00, 0x00 };
+                tokenRequestBytes.AddRange(junk);
+                tokenRequestBytes.AddRange(encoding.GetBytes(user));
+                tokenRequestBytes.Add(0x00);
+                foreach (byte b in md5)
+                    tokenRequestBytes.AddRange(encoding.GetBytes(String.Format("%02x", b)));
+                tokenRequestBytes.Add(0x00);
+                tokenRequestBytes.Add(0x00);
+                tokenRequestBytes.Add(0x00);
+
+                byte[] tokenBytes = tokenRequestBytes.ToArray();
+
+                client = new TcpClient("lol.auth.garenanow.com", 12000);
+                client.GetStream().Write(tokenBytes, 0, tokenBytes.Length);
+                client.GetStream().Flush();
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < 5; i++)
+                    client.GetStream().ReadByte();
+                int c;
+                while ((c = client.GetStream().ReadByte()) != 0)
+                    sb.Append((char)c);
+
+                garenaToken = sb.ToString();
+
+                client.Close();
+                return true;
+            }
+            catch
+            {
+                Error("Unable to acquire garena token", ErrorType.Login);
+                Disconnect();
+                return false;
+            }
+             */
+
+            Error("Garena Servers are not yet supported", ErrorType.Login);
+            Disconnect();
+            return false;
         }
 
         private bool GetAuthKey()
@@ -246,11 +258,9 @@ namespace PVPNetConnect
                 StringBuilder sb = new StringBuilder();
                 string payload = "user=" + user + ",password=" + password;
                 string query = "payload=" + payload;
+
                 if (useGarena)
-                {
-                    payload = reToken(garenaToken);
-                    query = "payload=8393%20" + payload;
-                }
+                    payload = garenaToken;
 
                 WebRequest con = WebRequest.Create(loginQueue + "login-queue/rest/queue/authenticate");
                 con.Method = "POST";
@@ -270,7 +280,7 @@ namespace PVPNetConnect
                 inputStream.Close();
                 con.Abort();
 
-                if (!result.ContainsKey("token") && !useGarena)
+                if (!result.ContainsKey("token"))
                 {
                     int node = (int)result.GetInt("node");
                     string champ = result.GetString("champ");
@@ -299,6 +309,8 @@ namespace PVPNetConnect
                         sb.Clear();
                         if (OnLoginQueueUpdate != null)
                             OnLoginQueueUpdate(this, id - cur);
+
+                        Thread.Sleep(delay);
                         con = WebRequest.Create(loginQueue + "login-queue/rest/queue/ticker/" + champ);
                         con.Method = "GET";
                         webresponse = con.GetResponse();
@@ -310,6 +322,7 @@ namespace PVPNetConnect
 
                         result = serializer.Deserialize<TypedObject>(sb.ToString());
 
+
                         inputStream.Close();
                         con.Abort();
 
@@ -319,60 +332,45 @@ namespace PVPNetConnect
                         cur = HexToInt(result.GetString(node.ToString()));
                     }
 
+
+
                     while (sb.ToString() == null || !result.ContainsKey("token"))
                     {
-                        sb.Clear();
-                        if (id - cur < 0)
-                            if (OnLoginQueueUpdate != null)
-                                OnLoginQueueUpdate(this, 0);
-                            else if (OnLoginQueueUpdate != null)
-                                OnLoginQueueUpdate(this, id - cur);
-
-                        con = WebRequest.Create(loginQueue + "login-queue/rest/queue/authToken/" + user.ToLower());
-                        con.Method = "GET";
                         try
                         {
-                            using (WebResponse nWebresponse = con.GetResponse())
-                            {
-                                using (Stream nInputStream = nWebresponse.GetResponseStream())
-                                {
+                            sb.Clear();
 
-                                    int f;
-                                    while ((f = nInputStream.ReadByte()) != -1)
-                                        sb.Append((char)f);
-
-                                    result = serializer.Deserialize<TypedObject>(sb.ToString());
-                                }
-                            }
-                        }
-                        catch (WebException e)
-                        {
-                            if (e.Status == WebExceptionStatus.ProtocolError && e.Response != null)
-                            {
-                                var response = (HttpWebResponse)e.Response;
-                                if (response.StatusCode == HttpStatusCode.NotFound)
-                                {
-                                    Thread.Sleep(50);
-                                    continue;
-                                }
+                            if (id - cur < 0)
+                                if (OnLoginQueueUpdate != null)
+                                    OnLoginQueueUpdate(this, 0);
                                 else
-                                {
-                                    Debug.WriteLine(e.Message);
-                                }
-                            }
+                                    if (OnLoginQueueUpdate != null)
+                                        OnLoginQueueUpdate(this, id - cur);
+
+                            Thread.Sleep(delay / 10);
+                            con = WebRequest.Create(loginQueue + "login-queue/rest/queue/authToken/" + user.ToLower());
+                            con.Method = "GET";
+                            webresponse = con.GetResponse();
+                            inputStream = webresponse.GetResponseStream();
+
+                            int f;
+                            while ((f = inputStream.ReadByte()) != -1)
+                                sb.Append((char)f);
+
+                            result = serializer.Deserialize<TypedObject>(sb.ToString());
+
+                            inputStream.Close();
+                            con.Abort();
                         }
-                        inputStream.Close();
-                        con.Abort();
+                        catch
+                        {
+
+                        }
                     }
                 }
                 if (OnLoginQueueUpdate != null)
                     OnLoginQueueUpdate(this, 0);
-                    authToken = result.GetString("token");
-                if (useGarena)
-                {
-                    userID = result.GetString("user");
-                    Gas = sb.ToString();
-                }
+                authToken = result.GetString("token");
 
                 return true;
             }
@@ -388,11 +386,6 @@ namespace PVPNetConnect
                     Error("Your username or password is incorrect!", ErrorType.Password);
                     Disconnect();
                 }
-                else if (e.Message == "The given key was not present in the dictionary.")
-                {
-                    Error("The given key was not present in the dictionary. Client version is wrong maybe?", ErrorType.AuthKey);
-                    Disconnect();
-                }
                 else
                 {
                     Error("Unable to get Auth Key \n" + e, ErrorType.AuthKey);
@@ -402,7 +395,6 @@ namespace PVPNetConnect
                 return false;
             }
         }
-
 
         private int HexToInt(string hex)
         {
@@ -448,26 +440,6 @@ namespace PVPNetConnect
             }
         }
 
-        public static string GetNewIpAddress()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            WebRequest con = WebRequest.Create("http://ll.leagueoflegends.com/services/connection_info");
-            WebResponse response = con.GetResponse();
-
-            int c;
-            while ((c = response.GetResponseStream().ReadByte()) != -1)
-                sb.Append((char)c);
-
-            con.Abort();
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            Dictionary<string, string> deserializedJSON = serializer.Deserialize<Dictionary<string, string>>(sb.ToString());
-
-            return deserializedJSON["ip_address"];
-        }
-
-
         private bool Handshake()
         {
             byte[] handshakePacket = new byte[1537];
@@ -482,6 +454,7 @@ namespace PVPNetConnect
                 Disconnect();
                 return false;
             }
+
 
             byte[] responsePacket = new byte[1536];
             sslStream.Read(responsePacket, 0, 1536);
@@ -556,32 +529,32 @@ namespace PVPNetConnect
             TypedObject result, body;
 
             // Login 1
-            body = new TypedObject("com.riotgames.platform.login.AuthenticationCredentials");
-            body.Add("password", password);
-            body.Add("clientVersion", clientVersion);
-            body.Add("ipAddress", ipAddress);
-            body.Add("securityAnswer", null);
-            body.Add("locale", locale);
-            body.Add("domain", "lolclient.lol.riotgames.com");
+            RiotObjects.Platform.Login.AuthenticationCredentials cred = new RiotObjects.Platform.Login.AuthenticationCredentials();
+            cred.Password = password;
+            cred.ClientVersion = clientVersion;
+            cred.IpAddress = ipAddress;
+            cred.SecurityAnswer = null;
+            cred.Locale = locale;
+            cred.Domain = "lolclient.lol.riotgames.com";
+            cred.OldPassword = null;
+            cred.AuthToken = authToken;
 
-            body.Add("oldPassword", null);
-            body.Add("authToken", authToken);
             if (useGarena)
             {
-                body.Add("partnerCredentials", "8393 " + garenaToken);
-                body.Add("username", userID);
+                cred.PartnerCredentials = "8393 " + garenaToken;
+                cred.Username = userID;
             }
             else
             {
-                body.Add("partnerCredentials", null);
-                body.Add("username", user);
+                cred.PartnerCredentials = null;
+                cred.Username = user;
             }
-
-            int id = Invoke("loginService", "login", new object[] { body });
+            int id = Invoke("loginService", "login", new object[] { cred.GetBaseTypedObject() });
 
             result = GetResult(id);
             if (result["result"].Equals("_error"))
             {
+                string newVersion = (string)result.GetTO("data").GetTO("rootCause").GetArray("substitutionArguments")[1];
                 Error(GetErrorMessage(result), ErrorType.Login);
                 Disconnect();
                 return false;
@@ -596,13 +569,12 @@ namespace PVPNetConnect
             if (useGarena)
                 body = WrapBody(Convert.ToBase64String(Encoding.UTF8.GetBytes(userID + ":" + sessionToken)), "auth", 8);
             else
-                body = WrapBody(Convert.ToBase64String(Encoding.UTF8.GetBytes(user.ToLower() + ":" + sessionToken)),
-                    "auth", 8);
+                body = WrapBody(Convert.ToBase64String(Encoding.UTF8.GetBytes(user.ToLower() + ":" + sessionToken)), "auth", 8);
 
             body.type = "flex.messaging.messages.CommandMessage";
 
             id = Invoke(body);
-            result = GetResult(id); // Read result (and discard)
+            result = GetResult(id); // Read result and discard
 
             isLoggedIn = true;
             if (OnLogin != null)
@@ -621,6 +593,7 @@ namespace PVPNetConnect
             return message.GetTO("data").GetTO("rootCause").GetString("errorCode");
         }
 
+
         private void StartHeartbeat()
         {
             heartbeatThread = new Thread(async () =>
@@ -630,10 +603,7 @@ namespace PVPNetConnect
                     try
                     {
                         long hbTime = (long)DateTime.Now.TimeOfDay.TotalMilliseconds;
-                        string result =
-                            await
-                                PerformLCDSHeartBeat(accountID, sessionToken, heartbeatCount,
-                                    DateTime.Now.ToString("ddd MMM d yyyy HH:mm:ss 'GMT-0700'"));
+                        string result = await PerformLCDSHeartBeat(accountID, sessionToken, heartbeatCount, DateTime.Now.ToString("ddd MMM d yyyy HH:mm:ss 'GMT-0700'"));
                         //int id = Invoke("loginService", "performLCDSHeartBeat", new object[] { accountID, sessionToken, heartbeatCount, DateTime.Now.ToString("ddd MMM d yyyy HH:mm:ss 'GMT-0700'") });
                         //Cancel(id); // Ignore result for now
 
@@ -645,14 +615,13 @@ namespace PVPNetConnect
                     }
                     catch
                     {
+
                     }
                 }
             });
-            heartbeatThread.IsBackground = true;
             heartbeatThread.Start();
         }
-
-        #endregion Connect, Login, and Heartbeat Methods
+        #endregion
 
         #region Disconnect Methods
 
@@ -680,35 +649,18 @@ namespace PVPNetConnect
                 callbacks.Clear();
                 results.Clear();
 
-                if (!KeepDelegatesOnLogout)
-                {
-                    try
-                    {
-                        foreach (Delegate d in OnMessageReceived.GetInvocationList())
-                        {
-                            OnMessageReceived -= (OnMessageReceivedHandler)d;
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
-
                 client = null;
                 sslStream = null;
 
                 if (OnDisconnect != null)
                     OnDisconnect(this, EventArgs.Empty);
             });
-            t.IsBackground = true;
+
             t.Start();
         }
-
-        #endregion Disconnect Methods
+        #endregion
 
         #region Error Methods
-
         private void Error(string message, string errorCode, ErrorType type)
         {
             Error error = new Error()
@@ -721,37 +673,38 @@ namespace PVPNetConnect
             if (OnError != null)
                 OnError(this, error);
         }
-
         private void Error(string message, ErrorType type)
         {
             Error(message, "", type);
         }
-
-        #endregion Error Methods
+        #endregion
 
         #region Send Methods
 
         private int Invoke(TypedObject packet)
         {
-            int id = NextInvokeID();
-            pendingInvokes.Add(id);
-
-            try
+            lock (isInvokingLock)
             {
-                RTMPSEncoder encoder = new RTMPSEncoder();
-                byte[] data = encoder.EncodeInvoke(id, packet);
+                int id = NextInvokeID();
+                pendingInvokes.Add(id);
 
-                sslStream.Write(data, 0, data.Length);
+                try
+                {
+                    RTMPSEncoder encoder = new RTMPSEncoder();
+                    byte[] data = encoder.EncodeInvoke(id, packet);
 
-                return id;
-            }
-            catch (IOException e)
-            {
-                // Clear the pending invoke
-                pendingInvokes.Remove(id);
+                    sslStream.Write(data, 0, data.Length);
 
-                // Rethrow
-                throw e;
+                    return id;
+                }
+                catch (IOException e)
+                {
+                    // Clear the pending invoke
+                    pendingInvokes.Remove(id);
+
+                    // Rethrow
+                    throw e;
+                }
             }
         }
 
@@ -769,9 +722,7 @@ namespace PVPNetConnect
             }
             else
             {
-                Error(
-                    "The client is not connected. Please make sure to connect before tring to execute an Invoke command.",
-                    ErrorType.Invoke);
+                Error("The client is not connected. Please make sure to connect before tring to execute an Invoke command.", ErrorType.Invoke);
                 Disconnect();
                 return -1;
             }
@@ -803,10 +754,9 @@ namespace PVPNetConnect
             return invokeID++;
         }
 
-        #endregion Send Methods
+        #endregion
 
         #region Receive Methods
-
         private void MessageReceived(object messageBody)
         {
             if (OnMessageReceived != null)
@@ -824,8 +774,8 @@ namespace PVPNetConnect
 
                     while (true)
                     {
-                        #region Basic Header
 
+                        #region Basic Header
                         byte basicHeader = (byte)sslStream.ReadByte();
                         List<byte> basicHeaderStorage = new List<byte>();
                         if ((int)basicHeader == 255)
@@ -856,11 +806,9 @@ namespace PVPNetConnect
                             basicHeaderStorage.Add(byte3);
                             channel = 64 + byte2 + (256 * byte3);
                         }
-
-                        #endregion Basic Header
+                        #endregion
 
                         #region Message Header
-
                         int headerType = (basicHeader & 0xC0);
                         int headerSize = 0;
                         if (headerType == 0x00)
@@ -973,11 +921,9 @@ namespace PVPNetConnect
                                 }
                             }
                         }
-
-                        #endregion Message Header
+                        #endregion
 
                         #region Message Body
-
                         //DefaultChunkSize is 128
                         for (int i = 0; i < 128; i++)
                         {
@@ -999,8 +945,8 @@ namespace PVPNetConnect
 
                         if (currentPackets.ContainsKey(channel))
                             currentPackets.Remove(channel);
+                        #endregion
 
-                        #endregion Message Body
 
                         // Decode result
                         TypedObject result;
@@ -1057,7 +1003,6 @@ namespace PVPNetConnect
                         //If it isn't, give an error and remove the callback if there is one.
                         if (result["result"].Equals("_error"))
                         {
-                            System.Diagnostics.Debug.WriteLine(result.GetTO("data")["faultString"]);
                             Error(GetErrorMessage(result), GetErrorCode(result), ErrorType.Receive);
                         }
 
@@ -1073,70 +1018,20 @@ namespace PVPNetConnect
                                         new Thread(new ThreadStart(() =>
                                         {
                                             TypedObject body = (TypedObject)to["body"];
-
                                             if (body.type.Equals("com.riotgames.platform.game.GameDTO"))
                                                 MessageReceived(new GameDTO(body));
-
                                             else if (body.type.Equals("com.riotgames.platform.game.PlayerCredentialsDto"))
                                                 MessageReceived(new PlayerCredentialsDto(body));
-
-                                            else if (
-                                                body.type.Equals("com.riotgames.platform.gameinvite.contract.InvitationRequest"))
-                                                MessageReceived(new InvitationRequest(body));
-
-                                            else if (
-                                                body.type.Equals("com.riotgames.platform.gameinvite.contract.InvitationRequest"))
-                                                MessageReceived(new Inviter(body));
-
-                                            else if (
-                                                body.type.Equals("com.riotgames.platform.serviceproxy.dispatch.LcdsServiceProxyResponse"))
-                                                MessageReceived(new LcdsServiceProxyResponse(body));
-
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.game.message.GameNotification"))
+                                            else if (body.type.Equals("com.riotgames.platform.game.message.GameNotification"))
                                                 MessageReceived(new GameNotification(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.matchmaking.SearchingForMatchNotification"))
+                                            else if (body.type.Equals("com.riotgames.platform.matchmaking.SearchingForMatchNotification"))
                                                 MessageReceived(new SearchingForMatchNotification(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.broadcast.BroadcastNotification"))
-                                                MessageReceived(new BroadcastNotification(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.messaging.StoreAccountBalanceNotification"))
+                                            else if (body.type.Equals("com.riotgames.platform.messaging.StoreFulfillmentNotification"))
+                                                MessageReceived(new StoreFulfillmentNotification(body));
+                                            else if (body.type.Equals("com.riotgames.platform.messaging.StoreFulfillmentNotification"))
                                                 MessageReceived(new StoreAccountBalanceNotification(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.broadcast.BroadcastMessage"))
-                                                MessageReceived(new BroadcastMessage(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.messaging.persistence.SimpleDialogMessage"))
-                                                MessageReceived(new SimpleDialogMessage(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.trade.api.contract.TradeContractDTO"))
-                                                MessageReceived(new TradeContractDTO(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.statistics.EndOfGameStats"))
-                                                MessageReceived(new EndOfGameStats(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.harassment.HarassmentReport"))
-                                                MessageReceived(new HarassmentReport(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.gameinvite.contract.LobbyStatus"))
-                                                MessageReceived(new LobbyStatus(body));
-                                            else if (
-                                                body.type.Equals(
-                                                    "com.riotgames.platform.messaging.ClientLoginKickNotification"))
-                                                MessageReceived(new ClientLoginKickNotification(body));
-                                            //MessageReceived(to["body"]);
+                                            else
+                                                MessageReceived(body);
                                         })).Start();
                                     }
                                 }
@@ -1157,7 +1052,10 @@ namespace PVPNetConnect
                             if (cb != null)
                             {
                                 TypedObject messageBody = result.GetTO("data").GetTO("body");
-                                new Thread(() => { cb.DoCallback(messageBody); }).Start();
+                                new Thread(() =>
+                                {
+                                    cb.DoCallback(messageBody);
+                                }).Start();
                             }
                         }
 
@@ -1167,7 +1065,9 @@ namespace PVPNetConnect
                         }
 
                         pendingInvokes.Remove((int)id);
+
                     }
+
                 }
                 catch (Exception e)
                 {
@@ -1177,9 +1077,9 @@ namespace PVPNetConnect
                     //Disconnect();
                 }
             });
-            decodeThread.IsBackground = true;
             decodeThread.Start();
         }
+
 
         private TypedObject GetResult(int id)
         {
@@ -1195,7 +1095,6 @@ namespace PVPNetConnect
             results.Remove(id);
             return ret;
         }
-
         private TypedObject PeekResult(int id)
         {
             if (results.ContainsKey(id))
@@ -1222,7 +1121,6 @@ namespace PVPNetConnect
                 Thread.Sleep(10);
             }
         }
-
         private void Cancel(int id)
         {
             // Remove from pending invokes (only affects join())
@@ -1242,14 +1140,17 @@ namespace PVPNetConnect
             }
         }
 
-        #endregion Receive Methods
+        #endregion
+
+
 
         #region Public Client Methods
 
-        #endregion Public Client Methods
+
+
+        #endregion
 
         #region General Returns
-
         public bool IsConnected()
         {
             return isConnected;
@@ -1259,7 +1160,10 @@ namespace PVPNetConnect
         {
             return isLoggedIn;
         }
-
-        #endregion General Returns
+        public double AccountID()
+        {
+            return accountID;
+        }
+        #endregion
     }
 }

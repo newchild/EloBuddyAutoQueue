@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class PlayerStatSummaries : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.PlayerStatSummaries";
@@ -40,6 +46,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         public List<PlayerStatSummary> PlayerStatSummarySet { get; set; }
 
         [InternalName("userId")]
-        public double UserId { get; set; }
+        public Double UserId { get; set; }
+
     }
 }

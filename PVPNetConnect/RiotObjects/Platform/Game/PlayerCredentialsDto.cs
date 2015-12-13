@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
+
     public class PlayerCredentialsDto : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.PlayerCredentialsDto";
@@ -36,51 +43,46 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         }
 
         [InternalName("encryptionKey")]
-        public string EncryptionKey { get; set; }
+        public String EncryptionKey { get; set; }
 
         [InternalName("gameId")]
-        public double GameId { get; set; }
+        public Double GameId { get; set; }
 
         [InternalName("lastSelectedSkinIndex")]
-        public int LastSelectedSkinIndex { get; set; }
-
-        [InternalName("dataVersion")]
-        public new int DataVersion { get; set; }
+        public Int32 LastSelectedSkinIndex { get; set; }
 
         [InternalName("serverIp")]
-        public string ServerIp { get; set; }
+        public String ServerIp { get; set; }
 
         [InternalName("observer")]
-        public bool Observer { get; set; }
-
-        [InternalName("futureData")]
-        public new bool FutureData { get; set; }
+        public Boolean Observer { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
 
         [InternalName("observerServerIp")]
-        public string ObserverServerIp { get; set; }
+        public String ObserverServerIp { get; set; }
 
         [InternalName("handshakeToken")]
-        public string HandshakeToken { get; set; }
+        public String HandshakeToken { get; set; }
 
         [InternalName("playerId")]
-        public double PlayerId { get; set; }
+        public Double PlayerId { get; set; }
 
         [InternalName("serverPort")]
-        public int ServerPort { get; set; }
+        public Int32 ServerPort { get; set; }
 
         [InternalName("observerServerPort")]
-        public int ObserverServerPort { get; set; }
+        public Int32 ObserverServerPort { get; set; }
 
         [InternalName("summonerName")]
-        public string SummonerName { get; set; }
+        public String SummonerName { get; set; }
 
         [InternalName("observerEncryptionKey")]
-        public string ObserverEncryptionKey { get; set; }
+        public String ObserverEncryptionKey { get; set; }
 
         [InternalName("championId")]
-        public int ChampionId { get; set; }
+        public Int32 ChampionId { get; set; }
+
     }
 }

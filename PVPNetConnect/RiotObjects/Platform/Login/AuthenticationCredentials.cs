@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Login
+namespace LoLLauncher.RiotObjects.Platform.Login
 {
+
     public class AuthenticationCredentials : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.login.AuthenticationCredentials";
@@ -39,33 +46,34 @@ namespace PVPNetConnect.RiotObjects.Platform.Login
         public object OldPassword { get; set; }
 
         [InternalName("username")]
-        public string Username { get; set; }
+        public String Username { get; set; }
 
         [InternalName("securityAnswer")]
         public object SecurityAnswer { get; set; }
 
         [InternalName("password")]
-        public string Password { get; set; }
+        public String Password { get; set; }
 
         [InternalName("partnerCredentials")]
         public object PartnerCredentials { get; set; }
 
         [InternalName("domain")]
-        public string Domain { get; set; }
+        public String Domain { get; set; }
 
         [InternalName("ipAddress")]
-        public string IpAddress { get; set; }
+        public String IpAddress { get; set; }
 
         [InternalName("clientVersion")]
-        public string ClientVersion { get; set; }
+        public String ClientVersion { get; set; }
 
         [InternalName("locale")]
-        public string Locale { get; set; }
+        public String Locale { get; set; }
 
         [InternalName("authToken")]
-        public string AuthToken { get; set; }
+        public String AuthToken { get; set; }
 
         [InternalName("operatingSystem")]
-        public string OperatingSystem { get; set; }
+        public String OperatingSystem { get; set; }
+
     }
 }

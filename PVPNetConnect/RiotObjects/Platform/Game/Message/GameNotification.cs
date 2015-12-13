@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game.Message
+namespace LoLLauncher.RiotObjects.Platform.Game.Message
 {
     public class GameNotification : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.message.GameNotification";
@@ -36,12 +43,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Game.Message
         }
 
         [InternalName("messageCode")]
-        public string MessageCode { get; set; }
+        public String MessageCode { get; set; }
 
         [InternalName("type")]
-        public string Type { get; set; }
+        public String Type { get; set; }
 
         [InternalName("messageArgument")]
         public object MessageArgument { get; set; }
+
     }
 }

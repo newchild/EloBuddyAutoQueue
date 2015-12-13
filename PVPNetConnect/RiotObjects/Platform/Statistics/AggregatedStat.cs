@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class AggregatedStat : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.AggregatedStat";
@@ -36,15 +43,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         }
 
         [InternalName("statType")]
-        public string StatType { get; set; }
+        public String StatType { get; set; }
 
         [InternalName("count")]
-        public double Count { get; set; }
+        public Double Count { get; set; }
 
         [InternalName("value")]
-        public double Value { get; set; }
+        public Double Value { get; set; }
 
         [InternalName("championId")]
-        public double ChampionId { get; set; }
+        public Int32 ChampionId { get; set; }
+
     }
 }

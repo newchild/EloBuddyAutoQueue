@@ -1,12 +1,11 @@
-﻿using PVPNetConnect.RiotObjects.Platform.Game;
-using PVPNetConnect.RiotObjects.Platform.Reroll.Pojo;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
+using System.Text;
 using System.Reflection;
 
-namespace PVPNetConnect.RiotObjects
+namespace LoLLauncher.RiotObjects
 {
     /// <summary>
     /// RiotGamesObject is the base class for all Riot objects.
@@ -27,13 +26,15 @@ namespace PVPNetConnect.RiotObjects
         [InternalName("dataVersion")]
         public int DataVersion { get; set; }
 
+
         public TypedObject GetBaseTypedObject()
         {
             TypedObject typedObject = new TypedObject(TypeName);
-            Type objectType = GetType();
+            Type objectType = this.GetType();
 
             foreach (var prop in objectType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly))
             {
+
                 var intern = prop.GetCustomAttributes(typeof(InternalNameAttribute), false).FirstOrDefault() as InternalNameAttribute;
                 if (intern == null)
                     continue;
@@ -58,7 +59,7 @@ namespace PVPNetConnect.RiotObjects
                     var test = prop.GetValue(this) as string[];
                     if (test != null) value = test.Cast<object>().ToArray();
                 }
-                //List = Array Collection. object array = object array
+                //List = Array Collection. Object array = object array
                 else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
                 {
                     IList listValues = prop.GetValue(this) as IList;
@@ -115,7 +116,6 @@ namespace PVPNetConnect.RiotObjects
 
             return typedObject;
         }
-
         /// <summary>
         /// The base virtual DoCallback method.
         /// </summary>
@@ -153,6 +153,7 @@ namespace PVPNetConnect.RiotObjects
                     continue;
                 }
 
+
                 try
                 {
                     if (result[intern.Name] == null)
@@ -163,13 +164,13 @@ namespace PVPNetConnect.RiotObjects
                     {
                         value = Convert.ToString(result[intern.Name]);
                     }
-                    else if (type == typeof( long))
-                    {
-                        value = Convert.ToInt64(result[intern.Name]);
-                    }
-                    else if (type == typeof(int))
+                    else if (type == typeof(Int32))
                     {
                         value = Convert.ToInt32(result[intern.Name]);
+                    }
+                    else if (type == typeof(Int64))
+                    {
+                        value = Convert.ToInt64(result[intern.Name]);
                     }
                     else if (type == typeof(double))
                     {
@@ -185,7 +186,7 @@ namespace PVPNetConnect.RiotObjects
                     }
                     else if (type == typeof(TypedObject))
                     {
-                        value = result[intern.Name];
+                        value = (TypedObject)result[intern.Name];
                     }
 
                     else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
@@ -207,34 +208,25 @@ namespace PVPNetConnect.RiotObjects
                             {
                                 objectList.Add((string)data);
                             }
-                            else if (elementType == typeof( long))
-                            {
-                                objectList.Add(Convert.ToInt64(data));
-                            }
-                            else if (elementType == typeof(int))
-                            {
-                                objectList.Add(Convert.ToInt32(data));
-                            }
-                            else if (elementType == typeof(Participant))
+                            else if (elementType == typeof(Platform.Game.Participant))
                             {
                                 TypedObject dataAsTo = (TypedObject)data;
                                 if (dataAsTo.type == "com.riotgames.platform.game.BotParticipant")
-                                    objectList.Add(new BotParticipant(dataAsTo));
-                                else if (dataAsTo.type == "com.riotgames.platform.game.ObfuscatedParticipant")
-                                    objectList.Add(new ObfuscatedParticipant(dataAsTo));
+                                    objectList.Add(new Platform.Game.BotParticipant(dataAsTo));
+                                else if (dataAsTo.type == "com.riotgames.platform.game.ObfruscatedParticipant")
+                                    objectList.Add(new Platform.Game.ObfuscatedParticipant(dataAsTo));
                                 else if (dataAsTo.type == "com.riotgames.platform.game.PlayerParticipant")
-                                    objectList.Add(new PlayerParticipant(dataAsTo));
-                                else if (dataAsTo.type == "com.riotgames.platform.game.GameParticipant")
-                                    objectList.Add(new GameParticipant(dataAsTo));
+                                    objectList.Add(new Platform.Game.PlayerParticipant(dataAsTo));
                                 else if (dataAsTo.type == "com.riotgames.platform.reroll.pojo.AramPlayerParticipant")
-                                    objectList.Add(new AramPlayerParticipant(dataAsTo));
+                                    objectList.Add(new Platform.Reroll.Pojo.AramPlayerParticipant(dataAsTo));
                             }
-                            else if (elementType == typeof(object))
+                            else if (elementType == typeof(Int32))
                             {
-                                objectList.Add((object)data);
+                                objectList.Add((Int32)data);
                             }
                             else
                             {
+
                                 objectList.Add(Activator.CreateInstance(elementType, data));
                             }
                         }
@@ -269,13 +261,13 @@ namespace PVPNetConnect.RiotObjects
                         */
                         //value = objectDictionary;
                     }
-                    else if (type == typeof(int[]))
+                    else if (type == typeof(Int32[]))
                     {
-                        value = result.GetArray(intern.Name).Cast<int>().ToArray();
+                        value = result.GetArray(intern.Name).Cast<Int32>().ToArray();
                     }
-                    else if (type == typeof(string[]))
+                    else if (type == typeof(String[]))
                     {
-                        value = result.GetArray(intern.Name).Cast<string>().ToArray();
+                        value = result.GetArray(intern.Name).Cast<String>().ToArray();
                     }
                     else if (type == typeof(object[]))
                     {
@@ -294,13 +286,16 @@ namespace PVPNetConnect.RiotObjects
                         catch (Exception e)
                         {
                             throw new NotSupportedException(string.Format("Type {0} not supported by flash serializer", type.FullName), e);
+
                         }
                     }
                     prop.SetValue(obj, value, null);
                 }
                 catch
                 {
+                    //Console.WriteLine(type, result[intern.Name]);
                 }
+
             }
         }
     }
@@ -327,4 +322,5 @@ namespace PVPNetConnect.RiotObjects
             Name = name;
         }
     }
+
 }

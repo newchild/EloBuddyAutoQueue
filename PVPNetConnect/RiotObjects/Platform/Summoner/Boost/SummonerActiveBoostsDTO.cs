@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Boost
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Boost
 {
+
     public class SummonerActiveBoostsDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.boost.SummonerActiveBoostsDTO";
@@ -36,24 +43,25 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Boost
         }
 
         [InternalName("xpBoostEndDate")]
-        public double XpBoostEndDate { get; set; }
+        public Double XpBoostEndDate { get; set; }
 
         [InternalName("xpBoostPerWinCount")]
-        public int XpBoostPerWinCount { get; set; }
+        public Int32 XpBoostPerWinCount { get; set; }
 
         [InternalName("xpLoyaltyBoost")]
-        public int XpLoyaltyBoost { get; set; }
+        public Int32 XpLoyaltyBoost { get; set; }
 
         [InternalName("ipBoostPerWinCount")]
-        public int IpBoostPerWinCount { get; set; }
+        public Int32 IpBoostPerWinCount { get; set; }
 
         [InternalName("ipLoyaltyBoost")]
-        public int IpLoyaltyBoost { get; set; }
+        public Int32 IpLoyaltyBoost { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
 
         [InternalName("ipBoostEndDate")]
-        public double IpBoostEndDate { get; set; }
+        public Double IpBoostEndDate { get; set; }
+
     }
 }

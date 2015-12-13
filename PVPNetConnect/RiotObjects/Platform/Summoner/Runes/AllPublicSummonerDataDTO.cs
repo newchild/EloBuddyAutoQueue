@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LoLLauncher.RiotObjects.Platform.Summoner.Spellbook;
-using LoLLauncher.RiotObjects.Platform.Summoner.Masterybook;
 
 namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
 
-    public class AllSummonerData : RiotGamesObject
+    public class AllPublicSummonerDataDTO : RiotGamesObject
     {
         public override string TypeName
         {
@@ -18,23 +17,23 @@ namespace LoLLauncher.RiotObjects.Platform.Summoner
             }
         }
 
-        private string type = "com.riotgames.platform.summoner.AllSummonerData";
+        private string type = "com.riotgames.platform.summoner.AllPublicSummonerDataDTO";
 
-        public AllSummonerData()
+        public AllPublicSummonerDataDTO()
         {
         }
 
-        public AllSummonerData(Callback callback)
+        public AllPublicSummonerDataDTO(Callback callback)
         {
             this.callback = callback;
         }
 
-        public AllSummonerData(TypedObject result)
+        public AllPublicSummonerDataDTO(TypedObject result)
         {
             base.SetFields(this, result);
         }
 
-        public delegate void Callback(AllSummonerData result);
+        public delegate void Callback(AllPublicSummonerDataDTO result);
 
         private Callback callback;
 
@@ -54,10 +53,7 @@ namespace LoLLauncher.RiotObjects.Platform.Summoner
         public SummonerTalentsAndPoints SummonerTalentsAndPoints { get; set; }
 
         [InternalName("summoner")]
-        public Summoner Summoner { get; set; }
-
-        [InternalName("masteryBook")]
-        public MasteryBookDTO MasteryBook { get; set; }
+        public BasePublicSummonerDTO Summoner { get; set; }
 
         [InternalName("summonerLevelAndPoints")]
         public SummonerLevelAndPoints SummonerLevelAndPoints { get; set; }

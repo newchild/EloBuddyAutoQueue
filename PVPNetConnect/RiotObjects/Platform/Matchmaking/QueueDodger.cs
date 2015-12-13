@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
+namespace LoLLauncher.RiotObjects.Platform.Matchmaking
 {
+
     public class QueueDodger : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.matchmaking.QueueDodger";
@@ -36,12 +43,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
         }
 
         [InternalName("reasonFailed")]
-        public string ReasonFailed { get; set; }
+        public String ReasonFailed { get; set; }
 
         [InternalName("summoner")]
-        public PVPNetConnect.RiotObjects.Platform.Summoner.Summoner Summoner { get; set; }
+        public Summoner.Summoner Summoner { get; set; }
 
         [InternalName("dodgePenaltyRemainingTime")]
-        public int PenaltyRemainingTime { get; set; }
+        public Int32 DodgePenaltyRemainingTime { get; set; }
+
     }
 }

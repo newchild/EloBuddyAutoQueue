@@ -1,14 +1,20 @@
-using PVPNetConnect.RiotObjects.Team;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Team;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class EndOfGameStats : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.EndOfGameStats";
@@ -38,144 +44,142 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         }
 
         [InternalName("talentPointsGained")]
-        public int TalentPointsGained { get; set; }
+        public Int32 TalentPointsGained { get; set; }
 
         [InternalName("ranked")]
-        public bool Ranked { get; set; }
+        public Boolean Ranked { get; set; }
 
         [InternalName("leveledUp")]
-        public bool LeveledUp { get; set; }
+        public Boolean LeveledUp { get; set; }
 
         [InternalName("skinIndex")]
-        public int SkinIndex { get; set; }
+        public Int32 SkinIndex { get; set; }
 
         [InternalName("queueBonusEarned")]
-        public int QueueBonusEarned { get; set; }
+        public Int32 QueueBonusEarned { get; set; }
 
         [InternalName("gameType")]
-        public string GameType { get; set; }
+        public String GameType { get; set; }
 
         [InternalName("experienceEarned")]
-        public double ExperienceEarned { get; set; }
+        public Double ExperienceEarned { get; set; }
 
         [InternalName("imbalancedTeamsNoPoints")]
-        public bool ImbalancedTeamsNoPoints { get; set; }
+        public Boolean ImbalancedTeamsNoPoints { get; set; }
 
         [InternalName("teamPlayerParticipantStats")]
         public List<PlayerParticipantStatsSummary> TeamPlayerParticipantStats { get; set; }
 
         [InternalName("basePoints")]
-        public int BasePoints { get; set; }
+        public Int32 BasePoints { get; set; }
 
         [InternalName("reportGameId")]
-        public int ReportGameId { get; set; }
+        public object ReportGameId { get; set; }
 
         [InternalName("difficulty")]
-        public string Difficulty { get; set; }
+        public object Difficulty { get; set; }
 
         [InternalName("gameLength")]
-        public double GameLength { get; set; }
+        public Double GameLength { get; set; }
 
         [InternalName("boostXpEarned")]
-        public double BoostXpEarned { get; set; }
+        public Double BoostXpEarned { get; set; }
 
         [InternalName("invalid")]
-        public bool Invalid { get; set; }
+        public Boolean Invalid { get; set; }
 
         [InternalName("otherTeamInfo")]
         public TeamInfo OtherTeamInfo { get; set; }
 
         [InternalName("roomName")]
-        public string RoomName { get; set; }
+        public object RoomName { get; set; }
 
         [InternalName("customMinutesLeftToday")]
-        public int CustomMinutesLeftToday { get; set; }
+        public Int32 CustomMinutesLeftToday { get; set; }
 
         [InternalName("userId")]
-        public int UserId { get; set; }
+        public object UserId { get; set; }
 
         [InternalName("pointsPenalties")]
         public List<object> PointsPenalties { get; set; }
 
         [InternalName("coOpVsAiMinutesLeftToday")]
-        public int CoOpVsAiMinutesLeftToday { get; set; }
+        public Int32 CoOpVsAiMinutesLeftToday { get; set; }
 
         [InternalName("otherTeamPlayerParticipantStats")]
         public List<PlayerParticipantStatsSummary> OtherTeamPlayerParticipantStats { get; set; }
 
         [InternalName("loyaltyBoostIpEarned")]
-        public double LoyaltyBoostIpEarned { get; set; }
+        public Double LoyaltyBoostIpEarned { get; set; }
 
         [InternalName("rpEarned")]
-        public double RpEarned { get; set; }
+        public Double RpEarned { get; set; }
 
         [InternalName("completionBonusPoints")]
-        public int CompletionBonusPoints { get; set; }
+        public Int32 CompletionBonusPoints { get; set; }
 
         [InternalName("coOpVsAiMsecsUntilReset")]
-        public double CoOpVsAiMsecsUntilReset { get; set; }
+        public Double CoOpVsAiMsecsUntilReset { get; set; }
 
         [InternalName("boostIpEarned")]
-        public double BoostIpEarned { get; set; }
+        public Double BoostIpEarned { get; set; }
 
         [InternalName("newSpells")]
         public List<object> NewSpells { get; set; }
 
         [InternalName("experienceTotal")]
-        public double ExperienceTotal { get; set; }
+        public Double ExperienceTotal { get; set; }
 
         [InternalName("gameId")]
-        public double GameId { get; set; }
+        public Double GameId { get; set; }
 
         [InternalName("timeUntilNextFirstWinBonus")]
-        public double TimeUntilNextFirstWinBonus { get; set; }
+        public Double TimeUntilNextFirstWinBonus { get; set; }
 
         [InternalName("loyaltyBoostXpEarned")]
-        public double LoyaltyBoostXpEarned { get; set; }
+        public Double LoyaltyBoostXpEarned { get; set; }
 
         [InternalName("roomPassword")]
-        public string RoomPassword { get; set; }
+        public object RoomPassword { get; set; }
 
         [InternalName("elo")]
-        public int Elo { get; set; }
+        public Int32 Elo { get; set; }
 
         [InternalName("ipEarned")]
-        public double IpEarned { get; set; }
+        public Double IpEarned { get; set; }
 
         [InternalName("firstWinBonus")]
-        public double FirstWinBonus { get; set; }
+        public Double FirstWinBonus { get; set; }
 
         [InternalName("sendStatsToTournamentProvider")]
-        public bool SendStatsToTournamentProvider { get; set; }
+        public Boolean SendStatsToTournamentProvider { get; set; }
 
         [InternalName("eloChange")]
-        public int EloChange { get; set; }
+        public Int32 EloChange { get; set; }
 
         [InternalName("gameMode")]
-        public string GameMode { get; set; }
+        public String GameMode { get; set; }
 
         [InternalName("myTeamInfo")]
         public TeamInfo MyTeamInfo { get; set; }
 
         [InternalName("queueType")]
-        public string QueueType { get; set; }
+        public String QueueType { get; set; }
 
         [InternalName("odinBonusIp")]
-        public int OdinBonusIp { get; set; }
+        public Int32 OdinBonusIp { get; set; }
 
         [InternalName("myTeamStatus")]
-        public string MyTeamStatus { get; set; }
+        public String MyTeamStatus { get; set; }
 
         [InternalName("ipTotal")]
-        public double IpTotal { get; set; }
+        public Double IpTotal { get; set; }
 
         [InternalName("summonerName")]
-        public string SummonerName { get; set; }
+        public String SummonerName { get; set; }
 
         [InternalName("customMsecsUntilReset")]
-        public double CustomMsecsUntilReset { get; set; }
+        public Double CustomMsecsUntilReset { get; set; }
 
-        [InternalName("rerollEarned")]
-        public double RerollPointsEarned { get; set; }
     }
 }

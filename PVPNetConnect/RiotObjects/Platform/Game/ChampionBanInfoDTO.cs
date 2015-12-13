@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
+
     public class ChampionBanInfoDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.ChampionBanInfoDTO";
@@ -32,12 +39,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         }
 
         [InternalName("enemyOwned")]
-        public bool EnemyOwned { get; set; }
+        public Boolean EnemyOwned { get; set; }
 
         [InternalName("championId")]
-        public int ChampionId { get; set; }
+        public Int32 ChampionId { get; set; }
 
         [InternalName("owned")]
-        public bool Owned { get; set; }
+        public Boolean Owned { get; set; }
+
     }
 }

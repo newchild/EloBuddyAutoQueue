@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Spellbook
 {
+
     public class SpellBookPageDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.spellbook.SpellBookPageDTO";
@@ -40,18 +46,19 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Spellbook
         public List<SlotEntry> SlotEntries { get; set; }
 
         [InternalName("summonerId")]
-        public int SummonerId { get; set; }
+        public Int32 SummonerId { get; set; }
 
         [InternalName("createDate")]
         public DateTime CreateDate { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [InternalName("pageId")]
-        public int PageId { get; set; }
+        public Int32 PageId { get; set; }
 
         [InternalName("current")]
-        public bool Current { get; set; }
+        public Boolean Current { get; set; }
+
     }
 }

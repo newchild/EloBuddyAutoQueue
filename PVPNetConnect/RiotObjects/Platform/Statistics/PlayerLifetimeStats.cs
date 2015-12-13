@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class PlayerLifetimeStats : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.PlayerLifetimeStats";
@@ -45,10 +52,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         public DateTime PreviousFirstWinOfDay { get; set; }
 
         [InternalName("userId")]
-        public double UserId { get; set; }
+        public Double UserId { get; set; }
 
         [InternalName("dodgeStreak")]
-        public int DodgeStreak { get; set; }
+        public Int32 DodgeStreak { get; set; }
 
         [InternalName("dodgePenaltyDate")]
         public object DodgePenaltyDate { get; set; }
@@ -58,5 +65,6 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
 
         [InternalName("playerStats")]
         public PlayerStats PlayerStats { get; set; }
+
     }
 }

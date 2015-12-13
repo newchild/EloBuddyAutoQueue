@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Harassment
+namespace LoLLauncher.RiotObjects.Platform.Harassment
 {
+
     public class LcdsResponseString : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.harassment.LcdsResponseString";
@@ -36,6 +43,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Harassment
         }
 
         [InternalName("value")]
-        public string Value { get; set; }
+        public String Value { get; set; }
+
     }
 }

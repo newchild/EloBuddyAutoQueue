@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Catalog.Champion
+namespace LoLLauncher.RiotObjects.Platform.Catalog.Champion
 {
+
     public class ChampionSkinDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.catalog.champion.ChampionSkinDTO";
@@ -36,33 +43,34 @@ namespace PVPNetConnect.RiotObjects.Platform.Catalog.Champion
         }
 
         [InternalName("championId")]
-        public int ChampionId { get; set; }
+        public Int32 ChampionId { get; set; }
 
         [InternalName("skinId")]
-        public int SkinId { get; set; }
+        public Int32 SkinId { get; set; }
 
         [InternalName("freeToPlayReward")]
-        public bool FreeToPlayReward { get; set; }
+        public Boolean FreeToPlayReward { get; set; }
 
         [InternalName("stillObtainable")]
-        public bool StillObtainable { get; set; }
+        public Boolean StillObtainable { get; set; }
 
         [InternalName("lastSelected")]
-        public bool LastSelected { get; set; }
+        public Boolean LastSelected { get; set; }
 
         [InternalName("skinIndex")]
-        public int SkinIndex { get; set; }
+        public Int32 SkinIndex { get; set; }
 
         [InternalName("owned")]
-        public bool Owned { get; set; }
+        public Boolean Owned { get; set; }
 
         [InternalName("winCountRemaining")]
-        public int WinCountRemaining { get; set; }
+        public Int32 WinCountRemaining { get; set; }
 
         [InternalName("purchaseDate")]
-        public double PurchaseDate { get; set; }
+        public Int32 PurchaseDate { get; set; }
 
         [InternalName("endDate")]
-        public int EndDate { get; set; }
+        public Int32 EndDate { get; set; }
+
     }
 }

@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Catalog.Runes
+namespace LoLLauncher.RiotObjects.Platform.Catalog.Runes
 {
+
     public class RuneType : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.catalog.runes.RuneType";
@@ -36,9 +43,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Catalog.Runes
         }
 
         [InternalName("runeTypeId")]
-        public int RuneTypeId { get; set; }
+        public Int32 RuneTypeId { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
+
     }
 }

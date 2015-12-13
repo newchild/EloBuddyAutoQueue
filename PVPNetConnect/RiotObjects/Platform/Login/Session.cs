@@ -1,13 +1,20 @@
-using PVPNetConnect.RiotObjects.Platform.Account;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Account;
 
-namespace PVPNetConnect.RiotObjects.Platform.Login
+namespace LoLLauncher.RiotObjects.Platform.Login
 {
+
     public class Session : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.login.Session";
@@ -37,12 +44,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Login
         }
 
         [InternalName("token")]
-        public string Token { get; set; }
+        public String Token { get; set; }
 
         [InternalName("password")]
-        public string Password { get; set; }
+        public String Password { get; set; }
 
         [InternalName("accountSummary")]
         public AccountSummary AccountSummary { get; set; }
+
     }
 }

@@ -1,33 +1,22 @@
-﻿/**
- * A very basic RTMPS client
- *
- * @author Gabriel Van Eyck
- */
-/////////////////////////////////////////////////////////////////////////////////
-//
-//Ported to C# by Ryan A. LaSarre
-//
-/////////////////////////////////////////////////////////////////////////////////
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.IO;
 using System.Web.Script.Serialization;
-
-namespace PVPNetConnect
+namespace LoLLauncher
 {
     public class RTMPSDecoder
     {
         // Stores the data to be consumed while decoding
         private byte[] dataBuffer;
-
         private int dataPos;
 
         // Lists of references and class definitions seen so far
         private List<string> stringReferences = new List<string>();
-
         private List<object> objectReferences = new List<object>();
         private List<ClassDefinition> classDefinitions = new List<ClassDefinition>();
+
 
         private void Reset()
         {
@@ -80,14 +69,9 @@ namespace PVPNetConnect
             result.Add("serviceCall", DecodeAMF0());
             result.Add("data", DecodeAMF0());
 
+
             if (dataPos != dataBuffer.Length)
                 throw new Exception("Did not consume entire buffer: " + dataPos + " of " + dataBuffer.Length);
-
-            string[] typeNames = new string[classDefinitions.Count];
-            for (int i = 0; i < classDefinitions.Count; i++)
-            {
-                typeNames[i] = classDefinitions[i].type;
-            }
 
             return result;
         }
@@ -126,7 +110,7 @@ namespace PVPNetConnect
                     return ReadInt();
 
                 case 0x05:
-                    return Readdouble();
+                    return ReadDouble();
 
                 case 0x06:
                     return ReadString();
@@ -219,7 +203,7 @@ namespace PVPNetConnect
             return r;
         }
 
-        private double Readdouble()
+        private double ReadDouble()
         {
             long value = 0;
             for (int i = 0; i < 8; i++)
@@ -244,7 +228,7 @@ namespace PVPNetConnect
                 string str;
                 try
                 {
-                    UTF8Encoding enc = new UTF8Encoding();
+                    System.Text.UTF8Encoding enc = new System.Text.UTF8Encoding();
                     str = enc.GetString(data);
                 }
                 catch (Exception e)
@@ -275,7 +259,7 @@ namespace PVPNetConnect
 
             if (inline)
             {
-                long ms = (long)Readdouble();
+                long ms = (long)ReadDouble();
                 DateTime d = new DateTime(1970, 1, 1, 0, 0, 0, 0);
                 d = d.AddSeconds(ms / 1000);
 
@@ -389,8 +373,7 @@ namespace PVPNetConnect
                         object obj = Decode();
                         ret = TypedObject.MakeArrayCollection((object[])obj);
                     }
-                    else if (cd.type.Equals("com.riotgames.platform.systemstate.ClientSystemStatesNotification") ||
-                             cd.type.Equals("com.riotgames.platform.broadcast.BroadcastNotification"))
+                    else if (cd.type.Equals("com.riotgames.platform.systemstate.ClientSystemStatesNotification") || cd.type.Equals("com.riotgames.platform.broadcast.BroadcastNotification"))
                     {
                         int size = 0;
                         for (int i = 0; i < 4; i++)
@@ -408,7 +391,7 @@ namespace PVPNetConnect
                     else
                     {
                         //for (int i = dataPos; i < dataBuffer.length; i++)
-                        //System.out.print(string.format("%02X", dataBuffer[i]));
+                        //System.out.print(String.format("%02X", dataBuffer[i]));
                         //System.out.println();
                         throw new NotImplementedException("Externalizable not handled for " + cd.type);
                     }
@@ -417,14 +400,14 @@ namespace PVPNetConnect
                 {
                     for (int i = 0; i < cd.members.Count; i++)
                     {
-                        string key = cd.members[i];
+                        String key = cd.members[i];
                         object value = Decode();
                         ret.Add(key, value);
                     }
 
                     if (cd.dynamic)
                     {
-                        string key;
+                        String key;
                         while ((key = ReadString()).Length != 0)
                         {
                             object value = Decode();
@@ -629,7 +612,7 @@ namespace PVPNetConnect
             string str;
             try
             {
-                UTF8Encoding enc = new UTF8Encoding();
+                System.Text.UTF8Encoding enc = new System.Text.UTF8Encoding();
                 str = enc.GetString(data);
             }
             catch (Exception e)
@@ -642,7 +625,7 @@ namespace PVPNetConnect
 
         private int ReadIntAMF0()
         {
-            return (int)Readdouble();
+            return (int)ReadDouble();
         }
 
         private TypedObject ReadObjectAMF0()
@@ -653,7 +636,7 @@ namespace PVPNetConnect
             {
                 byte b = ReadByte();
                 if (b == 0x00)
-                    body.Add(key, Readdouble());
+                    body.Add(key, ReadDouble());
                 else if (b == 0x02)
                     body.Add(key, ReadStringAMF0());
                 else if (b == 0x05)

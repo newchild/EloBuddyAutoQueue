@@ -1,12 +1,20 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Statistics;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics.Team
+namespace LoLLauncher.RiotObjects.Platform.Statistics.Team
 {
+
     public class TeamPlayerAggregatedStatsDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.team.TeamPlayerAggregatedStatsDTO";
@@ -36,9 +44,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics.Team
         }
 
         [InternalName("playerId")]
-        public double PlayerId { get; set; }
+        public Double PlayerId { get; set; }
 
         [InternalName("aggregatedStats")]
         public AggregatedStats AggregatedStats { get; set; }
+
     }
 }

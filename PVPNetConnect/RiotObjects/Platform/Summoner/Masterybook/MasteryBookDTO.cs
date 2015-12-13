@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Masterybook
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Masterybook
 {
+
     public class MasteryBookDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.masterybook.MasteryBookDTO";
@@ -43,9 +49,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Masterybook
         public List<MasteryBookPageDTO> BookPages { get; set; }
 
         [InternalName("dateString")]
-        public string DateString { get; set; }
+        public String DateString { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

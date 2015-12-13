@@ -1,12 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
+
     public class StartChampSelectDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.StartChampSelectDTO";
@@ -37,5 +44,6 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
 
         [InternalName("invalidPlayers")]
         public List<object> InvalidPlayers { get; set; }
+
     }
 }

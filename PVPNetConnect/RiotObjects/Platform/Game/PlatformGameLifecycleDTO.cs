@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
+
     public class PlatformGameLifecycleDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.PlatformGameLifecycleDTO";
@@ -39,7 +46,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         public object GameSpecificLoyaltyRewards { get; set; }
 
         [InternalName("reconnectDelay")]
-        public int ReconnectDelay { get; set; }
+        public Int32 ReconnectDelay { get; set; }
 
         [InternalName("lastModifiedDate")]
         public object LastModifiedDate { get; set; }
@@ -51,9 +58,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         public PlayerCredentialsDto PlayerCredentials { get; set; }
 
         [InternalName("gameName")]
-        public string GameName { get; set; }
+        public String GameName { get; set; }
 
         [InternalName("connectivityStateEnum")]
         public object ConnectivityStateEnum { get; set; }
+
     }
 }

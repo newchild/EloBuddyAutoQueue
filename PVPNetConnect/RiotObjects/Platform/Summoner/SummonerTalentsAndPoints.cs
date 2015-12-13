@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner
+namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
+
     public class SummonerTalentsAndPoints : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.SummonerTalentsAndPoints";
@@ -36,7 +43,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner
         }
 
         [InternalName("talentPoints")]
-        public int TalentPoints { get; set; }
+        public Int32 TalentPoints { get; set; }
 
         [InternalName("modifyDate")]
         public DateTime ModifyDate { get; set; }
@@ -45,6 +52,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner
         public DateTime CreateDate { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

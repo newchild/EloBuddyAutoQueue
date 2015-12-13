@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
+namespace LoLLauncher.RiotObjects.Platform.Matchmaking
 {
+
     public class MatchingThrottleConfig : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.matchmaking.MatchingThrottleConfig";
@@ -37,12 +43,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
         }
 
         [InternalName("limit")]
-        public double Limit { get; set; }
+        public Double Limit { get; set; }
 
         [InternalName("matchingThrottleProperties")]
         public List<object> MatchingThrottleProperties { get; set; }
 
         [InternalName("cacheName")]
-        public string CacheName { get; set; }
+        public String CacheName { get; set; }
+
     }
 }

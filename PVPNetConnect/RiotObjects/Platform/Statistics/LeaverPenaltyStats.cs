@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class LeaverPenaltyStats : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.LeaverPenaltyStats";
@@ -39,15 +46,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         public object LastLevelIncrease { get; set; }
 
         [InternalName("level")]
-        public int Level { get; set; }
+        public Int32 Level { get; set; }
 
         [InternalName("lastDecay")]
         public DateTime LastDecay { get; set; }
 
         [InternalName("userInformed")]
-        public bool UserInformed { get; set; }
+        public Boolean UserInformed { get; set; }
 
         [InternalName("points")]
-        public int Points { get; set; }
+        public Int32 Points { get; set; }
+
     }
 }

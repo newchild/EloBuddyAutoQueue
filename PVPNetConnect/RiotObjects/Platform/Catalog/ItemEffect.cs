@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Catalog
+namespace LoLLauncher.RiotObjects.Platform.Catalog
 {
+
     public class ItemEffect : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.catalog.ItemEffect";
@@ -36,18 +43,19 @@ namespace PVPNetConnect.RiotObjects.Platform.Catalog
         }
 
         [InternalName("effectId")]
-        public int EffectId { get; set; }
+        public Int32 EffectId { get; set; }
 
         [InternalName("itemEffectId")]
-        public int ItemEffectId { get; set; }
+        public Int32 ItemEffectId { get; set; }
 
         [InternalName("effect")]
         public Effect Effect { get; set; }
 
         [InternalName("value")]
-        public string Value { get; set; }
+        public String Value { get; set; }
 
         [InternalName("itemId")]
-        public int ItemId { get; set; }
+        public Int32 ItemId { get; set; }
+
     }
 }

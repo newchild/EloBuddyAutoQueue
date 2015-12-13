@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner
+namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
+
     public class SummonerLevelAndPoints : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.SummonerLevelAndPoints";
@@ -36,15 +43,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner
         }
 
         [InternalName("infPoints")]
-        public double InfPoints { get; set; }
+        public Double InfPoints { get; set; }
 
         [InternalName("expPoints")]
-        public double ExpPoints { get; set; }
+        public Double ExpPoints { get; set; }
 
         [InternalName("summonerLevel")]
-        public double SummonerLevel { get; set; }
+        public Double SummonerLevel { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

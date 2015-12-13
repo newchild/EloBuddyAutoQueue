@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Runes
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Runes
 {
+
     public class SummonerRuneInventory : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.runes.SummonerRuneInventory";
@@ -40,12 +46,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Runes
         public object SummonerRunesJson { get; set; }
 
         [InternalName("dateString")]
-        public string DateString { get; set; }
+        public String DateString { get; set; }
 
         [InternalName("summonerRunes")]
         public List<SummonerRune> SummonerRunes { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

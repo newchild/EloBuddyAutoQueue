@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
+
     public class PlayerChampionSelectionDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.PlayerChampionSelectionDTO";
@@ -36,18 +43,19 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         }
 
         [InternalName("summonerInternalName")]
-        public string SummonerInternalName { get; set; }
+        public String SummonerInternalName { get; set; }
 
         [InternalName("spell2Id")]
-        public double Spell2Id { get; set; }
+        public Double Spell2Id { get; set; }
 
         [InternalName("selectedSkinIndex")]
-        public int SelectedSkinIndex { get; set; }
+        public Int32 SelectedSkinIndex { get; set; }
 
         [InternalName("championId")]
-        public int ChampionId { get; set; }
+        public Int32 ChampionId { get; set; }
 
         [InternalName("spell1Id")]
-        public double Spell1Id { get; set; }
+        public Double Spell1Id { get; set; }
+
     }
 }

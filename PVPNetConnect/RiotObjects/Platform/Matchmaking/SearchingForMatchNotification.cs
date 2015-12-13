@@ -1,12 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
+namespace LoLLauncher.RiotObjects.Platform.Matchmaking
 {
+
     public class SearchingForMatchNotification : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.matchmaking.SearchingForMatchNotification";
@@ -36,12 +43,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
         }
 
         [InternalName("playerJoinFailures")]
-        public List<object> PlayerJoinFailures { get; set; }
+        public QueueDodger PlayerJoinFailures { get; set; }
 
         [InternalName("ghostGameSummoners")]
         public object GhostGameSummoners { get; set; }
 
         [InternalName("joinedQueues")]
         public List<QueueInfo> JoinedQueues { get; set; }
+
     }
 }

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect
+namespace LoLLauncher
 {
     public class Packet
     {
@@ -14,7 +17,6 @@ namespace PVPNetConnect
         {
             this.rawPacketBytes = new List<byte>();
         }
-
         public void SetSize(int size)
         {
             dataSize = size;
@@ -55,12 +57,10 @@ namespace PVPNetConnect
         {
             rawPacketBytes.Add(b);
         }
-
         public void AddToRaw(byte[] b)
         {
             rawPacketBytes.AddRange(b);
         }
-
         public byte[] GetRawData()
         {
             return rawPacketBytes.ToArray();

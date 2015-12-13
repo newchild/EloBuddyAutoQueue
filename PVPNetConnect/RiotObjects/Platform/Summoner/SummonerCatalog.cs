@@ -1,12 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner
+namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
+
     public class SummonerCatalog : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.SummonerCatalog";
@@ -43,5 +50,6 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner
 
         [InternalName("spellBookConfig")]
         public List<RuneSlot> SpellBookConfig { get; set; }
+
     }
 }

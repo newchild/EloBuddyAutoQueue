@@ -1,12 +1,18 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Kudos.Dto
+namespace LoLLauncher.RiotObjects.Kudos.Dto
 {
     public class PendingKudosDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.kudos.dto.PendingKudosDTO";
@@ -36,6 +42,7 @@ namespace PVPNetConnect.RiotObjects.Kudos.Dto
         }
 
         [InternalName("pendingCounts")]
-        public int[] PendingCounts { get; set; }
+        public Int32[] PendingCounts { get; set; }
+
     }
 }

@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Team
+namespace LoLLauncher.RiotObjects.Team
 {
+
     public class CreatedTeam : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.team.CreatedTeam";
@@ -36,9 +43,10 @@ namespace PVPNetConnect.RiotObjects.Team
         }
 
         [InternalName("timeStamp")]
-        public double TimeStamp { get; set; }
+        public Double TimeStamp { get; set; }
 
         [InternalName("teamId")]
         public TeamId TeamId { get; set; }
+
     }
 }

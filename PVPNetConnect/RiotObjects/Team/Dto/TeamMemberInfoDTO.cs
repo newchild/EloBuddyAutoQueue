@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Team.Dto
+namespace LoLLauncher.RiotObjects.Team.Dto
 {
+
     public class TeamMemberInfoDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.team.dto.TeamMemberInfoDTO";
@@ -39,15 +46,16 @@ namespace PVPNetConnect.RiotObjects.Team.Dto
         public DateTime JoinDate { get; set; }
 
         [InternalName("playerName")]
-        public string PlayerName { get; set; }
+        public String PlayerName { get; set; }
 
         [InternalName("inviteDate")]
         public DateTime InviteDate { get; set; }
 
         [InternalName("status")]
-        public string Status { get; set; }
+        public String Status { get; set; }
 
         [InternalName("playerId")]
-        public double PlayerId { get; set; }
+        public Double PlayerId { get; set; }
+
     }
 }

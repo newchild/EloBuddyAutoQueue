@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PVPNetConnect.RiotObjects.Platform.Messaging
+namespace LoLLauncher.RiotObjects.Platform.Messaging
 {
-    public class StoreFulfillmentNotification : RiotGamesObject
+    class StoreFulfillmentNotification : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
-        private string type = "com.riotgames.platform.messaging.StoreFulfillmentNotification";
+        private string type = "com.riotgames.platform.reroll.pojo.StoreFulfillmentNotification";
 
         public StoreFulfillmentNotification()
         {
@@ -36,15 +43,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Messaging
         }
 
         [InternalName("rp")]
-        public double Rp { get; set; }
+        public Double Rp { get; set; }
 
         [InternalName("ip")]
-        public double Ip { get; set; }
+        public Double Ip { get; set; }
 
         [InternalName("inventoryType")]
-        public string InventoryType { get; set; }
+        public String InventoryType { get; set; }
 
         [InternalName("data")]
-        public object Data { get; set; }
+        public Platform.Catalog.Champion.ChampionDTO Data { get; set; }
+
     }
 }

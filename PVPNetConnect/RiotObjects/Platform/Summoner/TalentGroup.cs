@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner
+namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
+
     public class TalentGroup : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.TalentGroup";
@@ -37,15 +43,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner
         }
 
         [InternalName("index")]
-        public int Index { get; set; }
+        public Int32 Index { get; set; }
 
         [InternalName("talentRows")]
         public List<TalentRow> TalentRows { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [InternalName("tltGroupId")]
-        public int TltGroupId { get; set; }
+        public Int32 TltGroupId { get; set; }
+
     }
 }

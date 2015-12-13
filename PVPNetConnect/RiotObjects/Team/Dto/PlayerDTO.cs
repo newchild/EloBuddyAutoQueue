@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Team.Dto
+namespace LoLLauncher.RiotObjects.Team.Dto
 {
+
     public class PlayerDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.team.dto.PlayerDTO";
@@ -37,7 +43,7 @@ namespace PVPNetConnect.RiotObjects.Team.Dto
         }
 
         [InternalName("playerId")]
-        public double PlayerId { get; set; }
+        public Double PlayerId { get; set; }
 
         [InternalName("teamsSummary")]
         public List<object> TeamsSummary { get; set; }
@@ -47,5 +53,6 @@ namespace PVPNetConnect.RiotObjects.Team.Dto
 
         [InternalName("playerTeams")]
         public List<object> PlayerTeams { get; set; }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
     public class ObfuscatedParticipant : Participant
     {

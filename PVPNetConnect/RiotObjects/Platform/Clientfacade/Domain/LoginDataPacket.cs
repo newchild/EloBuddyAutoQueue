@@ -1,19 +1,25 @@
-using PVPNetConnect.RiotObjects.Kudos.Dto;
-using PVPNetConnect.RiotObjects.Platform.Broadcast;
-using PVPNetConnect.RiotObjects.Platform.Game;
-using PVPNetConnect.RiotObjects.Platform.Statistics;
-using PVPNetConnect.RiotObjects.Platform.Summoner;
-using PVPNetConnect.RiotObjects.Platform.Systemstate;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Statistics;
+using LoLLauncher.RiotObjects.Platform.Summoner;
+using LoLLauncher.RiotObjects.Platform.Broadcast;
+using LoLLauncher.RiotObjects.Platform.Systemstate;
+using LoLLauncher.RiotObjects.Kudos.Dto;
+using LoLLauncher.RiotObjects.Platform.Game;
 
-namespace PVPNetConnect.RiotObjects.Platform.Clientfacade.Domain
+namespace LoLLauncher.RiotObjects.Platform.Clientfacade.Domain
 {
+
     public class LoginDataPacket : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.clientfacade.domain.LoginDataPacket";
@@ -42,35 +48,32 @@ namespace PVPNetConnect.RiotObjects.Platform.Clientfacade.Domain
             callback(this);
         }
 
-        [InternalName("restrictedGamesRemainingForRanked")]
-        public int restrictedGamesRemainingForRanked { get; set; }
-
         [InternalName("playerStatSummaries")]
         public PlayerStatSummaries PlayerStatSummaries { get; set; }
 
         [InternalName("restrictedChatGamesRemaining")]
-        public int RestrictedChatGamesRemaining { get; set; }
+        public Int32 RestrictedChatGamesRemaining { get; set; }
 
         [InternalName("minutesUntilShutdown")]
-        public int MinutesUntilShutdown { get; set; }
+        public Int32 MinutesUntilShutdown { get; set; }
 
         [InternalName("minor")]
-        public bool Minor { get; set; }
+        public Boolean Minor { get; set; }
 
         [InternalName("maxPracticeGameSize")]
-        public int MaxPracticeGameSize { get; set; }
+        public Int32 MaxPracticeGameSize { get; set; }
 
         [InternalName("summonerCatalog")]
         public SummonerCatalog SummonerCatalog { get; set; }
 
         [InternalName("ipBalance")]
-        public double IpBalance { get; set; }
+        public Double IpBalance { get; set; }
 
         [InternalName("reconnectInfo")]
         public PlatformGameLifecycleDTO ReconnectInfo { get; set; }
 
         [InternalName("languages")]
-        public List<string> Languages { get; set; }
+        public List<String> Languages { get; set; }
 
         [InternalName("simpleMessages")]
         public List<object> SimpleMessages { get; set; }
@@ -79,78 +82,79 @@ namespace PVPNetConnect.RiotObjects.Platform.Clientfacade.Domain
         public AllSummonerData AllSummonerData { get; set; }
 
         [InternalName("customMinutesLeftToday")]
-        public int CustomMinutesLeftToday { get; set; }
+        public Int32 CustomMinutesLeftToday { get; set; }
 
         [InternalName("platformGameLifecycleDTO")]
         public object PlatformGameLifecycleDTO { get; set; }
 
         [InternalName("coOpVsAiMinutesLeftToday")]
-        public int CoOpVsAiMinutesLeftToday { get; set; }
+        public Int32 CoOpVsAiMinutesLeftToday { get; set; }
 
         [InternalName("bingeData")]
         public object BingeData { get; set; }
 
         [InternalName("inGhostGame")]
-        public bool InGhostGame { get; set; }
+        public Boolean InGhostGame { get; set; }
 
         [InternalName("leaverPenaltyLevel")]
-        public int LeaverPenaltyLevel { get; set; }
+        public Int32 LeaverPenaltyLevel { get; set; }
 
         [InternalName("bingePreventionSystemEnabledForClient")]
-        public bool BingePreventionSystemEnabledForClient { get; set; }
+        public Boolean BingePreventionSystemEnabledForClient { get; set; }
 
         [InternalName("pendingBadges")]
-        public int PendingBadges { get; set; }
+        public Int32 PendingBadges { get; set; }
 
         [InternalName("broadcastNotification")]
         public BroadcastNotification BroadcastNotification { get; set; }
 
         [InternalName("minutesUntilMidnight")]
-        public int MinutesUntilMidnight { get; set; }
+        public Int32 MinutesUntilMidnight { get; set; }
 
         [InternalName("timeUntilFirstWinOfDay")]
-        public double TimeUntilFirstWinOfDay { get; set; }
+        public Double TimeUntilFirstWinOfDay { get; set; }
 
         [InternalName("coOpVsAiMsecsUntilReset")]
-        public double CoOpVsAiMsecsUntilReset { get; set; }
+        public Double CoOpVsAiMsecsUntilReset { get; set; }
 
         [InternalName("clientSystemStates")]
         public ClientSystemStatesNotification ClientSystemStates { get; set; }
 
         [InternalName("bingeMinutesRemaining")]
-        public double BingeMinutesRemaining { get; set; }
+        public Double BingeMinutesRemaining { get; set; }
 
         [InternalName("pendingKudosDTO")]
         public PendingKudosDTO PendingKudosDTO { get; set; }
 
         [InternalName("leaverBusterPenaltyTime")]
-        public int LeaverBusterPenaltyTime { get; set; }
+        public Int32 LeaverBusterPenaltyTime { get; set; }
 
         [InternalName("platformId")]
-        public string PlatformId { get; set; }
+        public String PlatformId { get; set; }
 
         [InternalName("matchMakingEnabled")]
-        public bool MatchMakingEnabled { get; set; }
+        public Boolean MatchMakingEnabled { get; set; }
 
         [InternalName("minutesUntilShutdownEnabled")]
-        public bool MinutesUntilShutdownEnabled { get; set; }
+        public Boolean MinutesUntilShutdownEnabled { get; set; }
 
         [InternalName("rpBalance")]
-        public double RpBalance { get; set; }
+        public Double RpBalance { get; set; }
 
         [InternalName("gameTypeConfigs")]
         public List<GameTypeConfigDTO> GameTypeConfigs { get; set; }
 
         [InternalName("bingeIsPlayerInBingePreventionWindow")]
-        public bool BingeIsPlayerInBingePreventionWindow { get; set; }
+        public Boolean BingeIsPlayerInBingePreventionWindow { get; set; }
 
         [InternalName("minorShutdownEnforced")]
-        public bool MinorShutdownEnforced { get; set; }
+        public Boolean MinorShutdownEnforced { get; set; }
 
         [InternalName("competitiveRegion")]
-        public string CompetitiveRegion { get; set; }
+        public String CompetitiveRegion { get; set; }
 
         [InternalName("customMsecsUntilReset")]
-        public double CustomMsecsUntilReset { get; set; }
+        public Double CustomMsecsUntilReset { get; set; }
+
     }
 }

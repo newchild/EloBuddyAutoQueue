@@ -1,13 +1,20 @@
-using PVPNetConnect.RiotObjects.Platform.Game.Map;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Game.Map;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
+
     public class PracticeGameConfig : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.PracticeGameConfig";
@@ -40,30 +47,31 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         public object PassbackUrl { get; set; }
 
         [InternalName("gameName")]
-        public string GameName { get; set; }
+        public String GameName { get; set; }
 
         [InternalName("gameTypeConfig")]
-        public int GameTypeConfig { get; set; }
+        public Int32 GameTypeConfig { get; set; }
 
         [InternalName("passbackDataPacket")]
         public object PassbackDataPacket { get; set; }
 
         [InternalName("gamePassword")]
-        public string GamePassword { get; set; }
+        public String GamePassword { get; set; }
 
         [InternalName("gameMap")]
         public GameMap GameMap { get; set; }
 
         [InternalName("gameMode")]
-        public string GameMode { get; set; }
+        public String GameMode { get; set; }
 
         [InternalName("allowSpectators")]
-        public string AllowSpectators { get; set; }
+        public String AllowSpectators { get; set; }
 
         [InternalName("maxNumPlayers")]
-        public int MaxNumPlayers { get; set; }
+        public Int32 MaxNumPlayers { get; set; }
 
         [InternalName("region")]
-        public string Region { get; set; }
+        public String Region { get; set; }
+
     }
 }

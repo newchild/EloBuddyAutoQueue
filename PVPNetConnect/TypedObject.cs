@@ -1,22 +1,15 @@
-﻿/**
- * A very basic RTMPS client
- *
- * @author Gabriel Van Eyck
- */
-/////////////////////////////////////////////////////////////////////////////////
-//
-//Ported to C# by Ryan A. LaSarre
-//
-/////////////////////////////////////////////////////////////////////////////////
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 
-namespace PVPNetConnect
+namespace LoLLauncher
 {
     public class TypedObject : Dictionary<string, object>
     {
+        private static long serialVersionUID = 1244827787088018807L;
+
         public string type;
 
         public TypedObject()
@@ -51,22 +44,16 @@ namespace PVPNetConnect
 
         public int? GetInt(string key)
         {
-            if (this.ContainsKey(key))
-            {
-                object val = this[key];
-                if (val == null)
-                    return null;
-                else if (val is int)
-                    return (int)val;
-                else
-                    return Convert.ToInt32((double)val);
-            }
-            else
+            object val = this[key];
+            if (val == null)
                 return null;
-
+            else if (val is int)
+                return (int)val;
+            else
+                return Convert.ToInt32((double)val);
         }
 
-        public double? Getdouble(string key)
+        public double? GetDouble(string key)
         {
             object val = this[key];
             if (val == null)
@@ -109,7 +96,15 @@ namespace PVPNetConnect
                 return sb.ToString();
             }
             else
-                return type + ":" + base.ToString();
+            {
+                string val = "";
+                foreach (KeyValuePair<string, object> entry in this)
+                {
+                    val += entry.Key + " : " + entry.Value + "\n";
+                    // do something with entry.Value or entry.Key
+                }
+                return val + type + ":" + base.ToString();
+            }
         }
     }
 }

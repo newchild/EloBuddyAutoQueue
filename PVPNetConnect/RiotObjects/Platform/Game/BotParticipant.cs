@@ -1,13 +1,20 @@
-using PVPNetConnect.RiotObjects.Platform.Catalog.Champion;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Catalog.Champion;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
-    public class BotParticipant : GameParticipant
+
+    public class BotParticipant : Participant
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.BotParticipant";
@@ -26,7 +33,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
             base.SetFields(this, result);
         }
 
-        public new delegate void Callback(BotParticipant result);
+        public delegate void Callback(BotParticipant result);
 
         private Callback callback;
 
@@ -36,40 +43,44 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
             callback(this);
         }
 
+        [InternalName("botSkillLevel")]
+        public Int32 BotSkillLevel { get; set; }
+
         [InternalName("champion")]
         public ChampionDTO Champion { get; set; }
 
-        [InternalName("botSkillLevel")]
-        public int BotSkillLevel { get; set; }
+        [InternalName("botSkillLevelName")]
+        public String BotSkillLevelName { get; set; }
 
         [InternalName("teamId")]
-        public string teamId { get; set; }
+        public String TeamId { get; set; }
 
-        [InternalName("botSkillLevelName")]
-        public string botSkillLevelName { get; set; }
+        [InternalName("isGameOwner")]
+        public Boolean IsGameOwner { get; set; }
 
         [InternalName("pickMode")]
-        public int pickMode { get; set; }
-
-        [InternalName("isMe")]
-        public bool IsMe { get; set; }
+        public Int32 PickMode { get; set; }
 
         [InternalName("team")]
-        public int Team { get; set; }
+        public Int32 Team { get; set; }
+
+        [InternalName("summonerInternalName")]
+        public String SummonerInternalName { get; set; }
 
         [InternalName("pickTurn")]
-        public int PickTurn { get; set; }
+        public Int32 PickTurn { get; set; }
 
         [InternalName("badges")]
-        public int Badges { get; set; }
+        public Int32 Badges { get; set; }
+
+        [InternalName("isMe")]
+        public Boolean IsMe { get; set; }
+
+        [InternalName("summonerName")]
+        public String SummonerName { get; set; }
 
         [InternalName("teamName")]
         public object TeamName { get; set; }
 
-        [InternalName("isGameOwner")]
-        public bool IsGameOwner { get; set; }
-
-        [InternalName("summonerInternalName")]
-        public new string SummonerInternalName { get; set; }
     }
 }

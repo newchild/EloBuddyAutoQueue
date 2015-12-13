@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PVPNetConnect.RiotObjects.Platform.Reroll.Pojo
+namespace LoLLauncher.RiotObjects.Platform.Reroll.Pojo
 {
-    internal class EogPointChangeBreakdown : RiotGamesObject
+    class EogPointChangeBreakdown : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.reroll.pojo.EogPointChangeBreakdown";
@@ -36,18 +43,19 @@ namespace PVPNetConnect.RiotObjects.Platform.Reroll.Pojo
         }
 
         [InternalName("pointChangeFromGamePlay")]
-        public double PointChangeFromGamePlay { get; set; }
+        public Double PointChangeFromGamePlay { get; set; }
 
         [InternalName("pointChangeFromChampionsOwned")]
-        public double PointChangeFromChampionsOwned { get; set; }
+        public Double PointChangeFromChampionsOwned { get; set; }
 
         [InternalName("previousPoints")]
-        public double PreviousPoints { get; set; }
+        public Double PreviousPoints { get; set; }
 
         [InternalName("pointsUsed")]
-        public double PointsUsed { get; set; }
+        public Double PointsUsed { get; set; }
 
         [InternalName("endPoints")]
-        public double EndPoints { get; set; }
+        public Double EndPoints { get; set; }
+
     }
 }

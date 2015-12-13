@@ -1,10 +1,19 @@
-namespace PVPNetConnect.RiotObjects.Platform.Broadcast
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace LoLLauncher.RiotObjects.Platform.Broadcast
 {
+
     public class BroadcastNotification : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.broadcast.BroadcastNotification";
@@ -33,7 +42,5 @@ namespace PVPNetConnect.RiotObjects.Platform.Broadcast
             callback(this);
         }
 
-        [InternalName("broadcastMessages")]
-        public BroadcastMessage[] BroadcastMessages { get; set; }
     }
 }

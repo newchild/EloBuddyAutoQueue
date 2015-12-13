@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class TimeTrackedStat : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.TimeTrackedStat";
@@ -39,6 +46,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         public DateTime Timestamp { get; set; }
 
         [InternalName("type")]
-        public string Type { get; set; }
+        public String Type { get; set; }
+
     }
 }

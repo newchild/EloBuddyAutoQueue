@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
+
     public class BannedChampion : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.BannedChampion";
@@ -32,12 +39,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         }
 
         [InternalName("pickTurn")]
-        public int PickTurn { get; set; }
+        public Int32 PickTurn { get; set; }
 
         [InternalName("championId")]
-        public int ChampionId { get; set; }
+        public Int32 ChampionId { get; set; }
 
         [InternalName("teamId")]
-        public int TeamId { get; set; }
+        public Int32 TeamId { get; set; }
+
     }
 }

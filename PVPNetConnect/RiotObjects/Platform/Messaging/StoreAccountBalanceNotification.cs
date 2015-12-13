@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PVPNetConnect.RiotObjects.Platform.Messaging
+namespace LoLLauncher.RiotObjects.Platform.Messaging
 {
-    public class StoreAccountBalanceNotification : RiotGamesObject
+    class StoreAccountBalanceNotification : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.reroll.pojo.StoreAccountBalanceNotification";
@@ -36,9 +43,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Messaging
         }
 
         [InternalName("rp")]
-        public double Rp { get; set; }
+        public Double Rp { get; set; }
 
         [InternalName("ip")]
-        public double Ip { get; set; }
+        public Double Ip { get; set; }
+
     }
 }

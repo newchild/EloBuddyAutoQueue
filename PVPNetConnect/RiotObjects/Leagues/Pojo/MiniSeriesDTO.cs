@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Leagues.Pojo
+namespace LoLLauncher.RiotObjects.Leagues.Pojo
 {
+
     public class MiniSeriesDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.leagues.pojo.MiniSeriesDTO";
@@ -36,18 +43,19 @@ namespace PVPNetConnect.RiotObjects.Leagues.Pojo
         }
 
         [InternalName("progress")]
-        public string Progress { get; set; }
+        public String Progress { get; set; }
 
         [InternalName("target")]
-        public int Target { get; set; }
+        public Int32 Target { get; set; }
 
         [InternalName("losses")]
-        public int Losses { get; set; }
+        public Int32 Losses { get; set; }
 
         [InternalName("timeLeftToPlayMillis")]
-        public double TimeLeftToPlayMillis { get; set; }
+        public Double TimeLeftToPlayMillis { get; set; }
 
         [InternalName("wins")]
-        public int Wins { get; set; }
+        public Int32 Wins { get; set; }
+
     }
 }

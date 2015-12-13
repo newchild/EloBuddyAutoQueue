@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner
+namespace LoLLauncher.RiotObjects.Platform.Summoner
 {
+
     public class Summoner : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.Summoner";
@@ -36,56 +42,53 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner
             callback(this);
         }
 
-        [InternalName("internalName")]
-        public string InternalName { get; set; }
+        [InternalName("seasonTwoTier")]
+        public String SeasonTwoTier { get; set; }
 
-        [InternalName("previousSeasonHighestTier")]
-        public string previousSeasonHighestTier { get; set; }
+        [InternalName("internalName")]
+        public String InternalName { get; set; }
 
         [InternalName("acctId")]
-        public double AcctId { get; set; }
+        public Double AcctId { get; set; }
 
         [InternalName("helpFlag")]
-        public bool HelpFlag { get; set; }
+        public Boolean HelpFlag { get; set; }
 
         [InternalName("sumId")]
-        public double SumId { get; set; }
+        public Double SumId { get; set; }
 
         [InternalName("profileIconId")]
-        public int ProfileIconId { get; set; }
+        public Int32 ProfileIconId { get; set; }
 
         [InternalName("displayEloQuestionaire")]
-        public bool DisplayEloQuestionaire { get; set; }
+        public Boolean DisplayEloQuestionaire { get; set; }
 
         [InternalName("lastGameDate")]
         public DateTime LastGameDate { get; set; }
-        
-        [InternalName("previousSeasonHighestTeamReward")]
-        public int previousSeasonHighestTeamReward { get; set; }
+
+        [InternalName("advancedTutorialFlag")]
+        public Boolean AdvancedTutorialFlag { get; set; }
 
         [InternalName("revisionDate")]
         public DateTime RevisionDate { get; set; }
 
-        [InternalName("advancedTutorialFlag")]
-        public bool AdvancedTutorialFlag { get; set; }
-
         [InternalName("revisionId")]
-        public double RevisionId { get; set; }
+        public Double RevisionId { get; set; }
 
-        //TODO: find out object type, it seems to be null for now
-        [InternalName("futureData")]
-        public object futureData { get; set; }
-
-        [InternalName("dataVersion")]
-        public int dataVersion { get; set; }
+        [InternalName("seasonOneTier")]
+        public String SeasonOneTier { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [InternalName("nameChangeFlag")]
-        public bool NameChangeFlag { get; set; }
+        public Boolean NameChangeFlag { get; set; }
 
         [InternalName("tutorialFlag")]
-        public bool TutorialFlag { get; set; }
+        public Boolean TutorialFlag { get; set; }
+
+        [InternalName("socialNetworkUserIds")]
+        public List<object> SocialNetworkUserIds { get; set; }
+
     }
 }

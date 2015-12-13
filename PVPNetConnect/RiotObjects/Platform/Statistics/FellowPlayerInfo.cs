@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class FellowPlayerInfo : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.FellowPlayerInfo";
@@ -36,12 +43,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         }
 
         [InternalName("championId")]
-        public double ChampionId { get; set; }
+        public Double ChampionId { get; set; }
 
         [InternalName("teamId")]
-        public int TeamId { get; set; }
+        public Int32 TeamId { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

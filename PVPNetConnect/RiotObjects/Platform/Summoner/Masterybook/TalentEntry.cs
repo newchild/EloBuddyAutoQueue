@@ -1,12 +1,20 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Summoner;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Masterybook
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Masterybook
 {
+
     public class TalentEntry : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.masterybook.TalentEntry";
@@ -36,15 +44,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Masterybook
         }
 
         [InternalName("rank")]
-        public int Rank { get; set; }
+        public Int32 Rank { get; set; }
 
         [InternalName("talentId")]
-        public int TalentId { get; set; }
+        public Int32 TalentId { get; set; }
 
         [InternalName("talent")]
         public Talent Talent { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

@@ -1,13 +1,20 @@
-using PVPNetConnect.RiotObjects.Platform.Catalog.Runes;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Platform.Catalog.Runes;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Runes
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Runes
 {
+
     public class SummonerRune : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.summoner.runes.SummonerRune";
@@ -43,15 +50,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Runes
         public DateTime PurchaseDate { get; set; }
 
         [InternalName("runeId")]
-        public int RuneId { get; set; }
+        public Int32 RuneId { get; set; }
 
         [InternalName("quantity")]
-        public int Quantity { get; set; }
+        public Int32 Quantity { get; set; }
 
         [InternalName("rune")]
         public Rune Rune { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
+
     }
 }

@@ -1,14 +1,20 @@
-using PVPNetConnect.RiotObjects.Team;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Team;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics.Team
+namespace LoLLauncher.RiotObjects.Platform.Statistics.Team
 {
+
     public class TeamAggregatedStatsDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.team.TeamAggregatedStatsDTO";
@@ -38,15 +44,16 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics.Team
         }
 
         [InternalName("queueType")]
-        public string QueueType { get; set; }
+        public String QueueType { get; set; }
 
         [InternalName("serializedToJson")]
-        public string SerializedToJson { get; set; }
+        public String SerializedToJson { get; set; }
 
         [InternalName("playerAggregatedStatsList")]
         public List<TeamPlayerAggregatedStatsDTO> PlayerAggregatedStatsList { get; set; }
 
         [InternalName("teamId")]
         public TeamId TeamId { get; set; }
+
     }
 }

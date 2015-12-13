@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Team
+namespace LoLLauncher.RiotObjects.Team
 {
+
     public class TeamId : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.team.TeamId";
@@ -36,6 +43,7 @@ namespace PVPNetConnect.RiotObjects.Team
         }
 
         [InternalName("fullId")]
-        public string FullId { get; set; }
+        public String FullId { get; set; }
+
     }
 }

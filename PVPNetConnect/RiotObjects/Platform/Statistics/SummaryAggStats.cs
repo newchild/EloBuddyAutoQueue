@@ -1,12 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class SummaryAggStats : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.SummaryAggStats";
@@ -40,5 +47,6 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
 
         [InternalName("stats")]
         public List<SummaryAggStat> Stats { get; set; }
+
     }
 }

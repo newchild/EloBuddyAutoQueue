@@ -1,7 +1,9 @@
-﻿using System;
+﻿using LoLLauncher;
+using LoLLauncher.RiotObjects;
+using System;
 using System.Collections.Generic;
 
-namespace PVPNetConnect.RiotObjects.Platform.Summoner.Icon
+namespace LoLLauncher.RiotObjects.Platform.Summoner.Icon
 {
     public class SummonerIconInventoryDTO : RiotGamesObject
     {
@@ -37,7 +39,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Summoner.Icon
         }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
 
         [InternalName("summonerIcons")]
         public List<Platform.Catalog.Icon.Icon> SummonerIcons { get; set; }

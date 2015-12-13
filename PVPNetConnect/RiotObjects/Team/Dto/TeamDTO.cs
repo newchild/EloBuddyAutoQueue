@@ -1,14 +1,21 @@
-using PVPNetConnect.RiotObjects.Team.Stats;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using LoLLauncher.RiotObjects.Team.Stats;
+using LoLLauncher.RiotObjects.Team;
 
-namespace PVPNetConnect.RiotObjects.Team.Dto
+namespace LoLLauncher.RiotObjects.Team.Dto
 {
+
     public class TeamDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.team.dto.TeamDTO";
@@ -41,10 +48,10 @@ namespace PVPNetConnect.RiotObjects.Team.Dto
         public TeamStatSummary TeamStatSummary { get; set; }
 
         [InternalName("status")]
-        public string Status { get; set; }
+        public String Status { get; set; }
 
         [InternalName("tag")]
-        public string Tag { get; set; }
+        public String Tag { get; set; }
 
         [InternalName("roster")]
         public RosterDTO Roster { get; set; }
@@ -68,18 +75,19 @@ namespace PVPNetConnect.RiotObjects.Team.Dto
         public DateTime SecondLastJoinDate { get; set; }
 
         [InternalName("secondsUntilEligibleForDeletion")]
-        public double SecondsUntilEligibleForDeletion { get; set; }
+        public Double SecondsUntilEligibleForDeletion { get; set; }
 
         [InternalName("matchHistory")]
         public List<object> MatchHistory { get; set; }
 
         [InternalName("name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [InternalName("thirdLastJoinDate")]
         public DateTime ThirdLastJoinDate { get; set; }
 
         [InternalName("createDate")]
         public DateTime CreateDate { get; set; }
+
     }
 }

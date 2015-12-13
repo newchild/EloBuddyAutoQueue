@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Statistics
+namespace LoLLauncher.RiotObjects.Platform.Statistics
 {
+
     public class RawStatDTO : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.statistics.RawStatDTO";
@@ -36,12 +43,10 @@ namespace PVPNetConnect.RiotObjects.Platform.Statistics
         }
 
         [InternalName("value")]
-        public double Value { get; set; }
+        public Double Value { get; set; }
 
         [InternalName("statTypeName")]
-        public string StatTypeName { get; set; }
+        public String StatTypeName { get; set; }
 
-        [InternalName("futureData")]
-        public new bool FutureData { get; set; }
     }
 }

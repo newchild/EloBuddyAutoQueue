@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
     public class GameObserver : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.GameObserver";
@@ -36,45 +43,45 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         }
 
         [InternalName("accountId")]
-        public double AccountId { get; set; }
+        public Double AccountId { get; set; }
 
         [InternalName("botDifficulty")]
-        public string BotDifficulty { get; set; }
+        public String BotDifficulty { get; set; }
 
         [InternalName("summonerInternalName")]
-        public string SummonerInternalName { get; set; }
+        public String SummonerInternalName { get; set; }
 
         [InternalName("locale")]
         public object Locale { get; set; }
 
         [InternalName("lastSelectedSkinIndex")]
-        public int LastSelectedSkinIndex { get; set; }
+        public Int32 LastSelectedSkinIndex { get; set; }
 
         [InternalName("partnerId")]
-        public string PartnerId { get; set; }
+        public String PartnerId { get; set; }
 
         [InternalName("profileIconId")]
-        public int ProfileIconId { get; set; }
+        public Int32 ProfileIconId { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
 
         [InternalName("badges")]
-        public int Badges { get; set; }
+        public Int32 Badges { get; set; }
 
         [InternalName("pickTurn")]
-        public int PickTurn { get; set; }
+        public Int32 PickTurn { get; set; }
 
         [InternalName("originalAccountId")]
-        public double OriginalAccountId { get; set; }
+        public Double OriginalAccountId { get; set; }
 
         [InternalName("summonerName")]
-        public string SummonerName { get; set; }
+        public String SummonerName { get; set; }
 
         [InternalName("pickMode")]
-        public int PickMode { get; set; }
+        public Int32 PickMode { get; set; }
 
         [InternalName("originalPlatformId")]
-        public string OriginalPlatformId { get; set; }
+        public String OriginalPlatformId { get; set; }
     }
 }

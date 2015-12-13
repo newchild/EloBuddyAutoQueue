@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
+namespace LoLLauncher.RiotObjects.Platform.Matchmaking
 {
+
     public class QueueInfo : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.matchmaking.QueueInfo";
@@ -36,12 +43,13 @@ namespace PVPNetConnect.RiotObjects.Platform.Matchmaking
         }
 
         [InternalName("waitTime")]
-        public double WaitTime { get; set; }
+        public Double WaitTime { get; set; }
 
         [InternalName("queueId")]
-        public double QueueId { get; set; }
+        public Double QueueId { get; set; }
 
         [InternalName("queueLength")]
-        public int QueueLength { get; set; }
+        public Int32 QueueLength { get; set; }
+
     }
 }

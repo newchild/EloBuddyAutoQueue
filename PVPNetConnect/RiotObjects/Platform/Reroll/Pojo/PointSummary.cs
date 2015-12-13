@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Reroll.Pojo
+namespace LoLLauncher.RiotObjects.Platform.Reroll.Pojo
 {
+
     public class PointSummary : RiotGamesObject
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.reroll.pojo.PointSummary";
@@ -36,18 +43,19 @@ namespace PVPNetConnect.RiotObjects.Platform.Reroll.Pojo
         }
 
         [InternalName("pointsToNextRoll")]
-        public double PointsToNextRoll { get; set; }
+        public Double PointsToNextRoll { get; set; }
 
         [InternalName("maxRolls")]
-        public int MaxRolls { get; set; }
+        public Int32 MaxRolls { get; set; }
 
         [InternalName("numberOfRolls")]
-        public int NumberOfRolls { get; set; }
+        public Int32 NumberOfRolls { get; set; }
 
         [InternalName("pointsCostToRoll")]
-        public double PointsCostToRoll { get; set; }
+        public Double PointsCostToRoll { get; set; }
 
         [InternalName("currentPoints")]
-        public double CurrentPoints { get; set; }
+        public Double CurrentPoints { get; set; }
+
     }
 }

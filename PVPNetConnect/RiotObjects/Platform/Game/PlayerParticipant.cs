@@ -1,13 +1,19 @@
-using PVPNetConnect.RiotObjects.Platform.Reroll.Pojo;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace PVPNetConnect.RiotObjects.Platform.Game
+namespace LoLLauncher.RiotObjects.Platform.Game
 {
-    public class PlayerParticipant : GameParticipant
+
+    public class PlayerParticipant : Participant
     {
         public override string TypeName
         {
-            get { return this.type; }
+            get
+            {
+                return this.type;
+            }
         }
 
         private string type = "com.riotgames.platform.game.PlayerParticipant";
@@ -26,7 +32,7 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
             base.SetFields(this, result);
         }
 
-        public new delegate void Callback(PlayerParticipant result);
+        public delegate void Callback(PlayerParticipant result);
 
         private Callback callback;
 
@@ -37,69 +43,71 @@ namespace PVPNetConnect.RiotObjects.Platform.Game
         }
 
         [InternalName("timeAddedToQueue")]
-        public new object TimeAddedToQueue { get; set; }
+        public object TimeAddedToQueue { get; set; }
 
         [InternalName("index")]
-        public int Index { get; set; }
+        public Int32 Index { get; set; }
 
         [InternalName("queueRating")]
-        public int QueueRating { get; set; }
+        public Int32 QueueRating { get; set; }
 
         [InternalName("accountId")]
-        public double AccountId { get; set; }
+        public Double AccountId { get; set; }
 
         [InternalName("botDifficulty")]
-        public string BotDifficulty { get; set; }
+        public String BotDifficulty { get; set; }
 
         [InternalName("originalAccountNumber")]
-        public double OriginalAccountNumber { get; set; }
+        public Double OriginalAccountNumber { get; set; }
 
         [InternalName("summonerInternalName")]
-        public new string SummonerInternalName { get; set; }
+        public String SummonerInternalName { get; set; }
 
         [InternalName("minor")]
-        public bool Minor { get; set; }
+        public Boolean Minor { get; set; }
 
         [InternalName("locale")]
         public object Locale { get; set; }
 
         [InternalName("lastSelectedSkinIndex")]
-        public int LastSelectedSkinIndex { get; set; }
+        public Int32 LastSelectedSkinIndex { get; set; }
 
         [InternalName("partnerId")]
-        public string PartnerId { get; set; }
+        public String PartnerId { get; set; }
 
         [InternalName("profileIconId")]
-        public int ProfileIconId { get; set; }
+        public Int32 ProfileIconId { get; set; }
 
         [InternalName("teamOwner")]
-        public bool TeamOwner { get; set; }
+        public Boolean TeamOwner { get; set; }
 
         [InternalName("summonerId")]
-        public double SummonerId { get; set; }
+        public Double SummonerId { get; set; }
 
         [InternalName("badges")]
-        public int Badges { get; set; }
+        public Int32 Badges { get; set; }
 
         [InternalName("pickTurn")]
-        public int PickTurn { get; set; }
+        public Int32 PickTurn { get; set; }
 
         [InternalName("clientInSynch")]
-        public bool ClientInSynch { get; set; }
+        public Boolean ClientInSynch { get; set; }
 
         [InternalName("summonerName")]
-        public new string SummonerName { get; set; }
+        public String SummonerName { get; set; }
 
         [InternalName("pickMode")]
-        public int PickMode { get; set; }
-
-        [InternalName("pointSummary")]
-        public PointSummary PointSummary { get; set; } 
+        public Int32 PickMode { get; set; }
 
         [InternalName("originalPlatformId")]
-        public string OriginalPlatformId { get; set; }
+        public String OriginalPlatformId { get; set; }
 
         [InternalName("teamParticipantId")]
         public object TeamParticipantId { get; set; }
+
+        public override string ToString()
+        {
+            return SummonerName;
+        }
     }
 }
