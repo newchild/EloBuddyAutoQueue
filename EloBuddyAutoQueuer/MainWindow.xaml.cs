@@ -27,7 +27,7 @@ namespace EloBuddyAutoQueuer
 			InitializeComponent();
 			//image.Source = StaticUtils.GetImageStream(LoginHandler.profilePicture);
 			Title = "EloBuddy AutoQueuer";
-			Events.OnAddAccount += Events_OnAddAccount;
+			Events.Instance.OnAddAccount += Events_OnAddAccount;
 		}
 
 		private void Events_OnAddAccount()

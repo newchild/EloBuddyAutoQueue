@@ -8,11 +8,35 @@ namespace EloBuddyAutoQueuer
 {
 	class Events
 	{
+		private static Events _Instance;
+		public static Events Instance
+		{
+			get
+			{
+				if (_Instance == null)
+					_Instance = new Events();
+				return _Instance;
+			}
+			
+		}
+		
+		public class ReceivedMessageArgs
+		{
+			public object Message;
+		}
+
 		public delegate void AddAccount();
-		public static event AddAccount OnAddAccount;
-		public static void InvokeOnAddAccount()
+		public event AddAccount OnAddAccount;
+		public void InvokeAddAcc()
 		{
 			OnAddAccount();
+		}
+
+		public delegate void ReceiveMessage(Account sender, ReceivedMessageArgs args);
+		public event ReceiveMessage onReceiveMessage;
+		public void InvokeOnReceiveMessage(Account sender, ReceivedMessageArgs args)
+		{
+			onReceiveMessage(sender, args);
 		}
 	}
 }

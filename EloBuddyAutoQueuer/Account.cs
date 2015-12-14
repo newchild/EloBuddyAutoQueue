@@ -45,8 +45,14 @@ namespace EloBuddyAutoQueuer
 		private Status _curentStatus;
 		private SearchingForMatchNotification _GameSearchNotification;
         public bool ready;
-
+		public bool inChampSelect;
         public ChampionDTO[] champions { get; private set; }
+		public bool QueuePop;
+
+		public LoLConnection getConnectInfo()
+		{
+			return _Connection;
+		}
 
         public Account(string Username, string Password, Region region, QueueTypes queue = QueueTypes.MEDIUM_BOT)
 		{
@@ -64,11 +70,14 @@ namespace EloBuddyAutoQueuer
 			_Connection.OnError += _connection_OnError;
 			_Connection.OnDisconnect += _connection_OnDisconnect;
 			_Connection.OnMessageReceived += _Connection_OnMessageReceived;
+			//Naming of this one is wrong, it actually checks if it is the first tick of CHAMP_SELECT
+			inChampSelect = true;
+			QueuePop = false;
 		}
 
 		private void _Connection_OnMessageReceived(object sender, object message)
 		{
-			Logging.Log("Message received: " + message.ToString());
+			Events.Instance.InvokeOnReceiveMessage(this, new Events.ReceivedMessageArgs() { Message = message });
 		}
 
 		private void _connection_OnDisconnect(object sender, EventArgs e)
@@ -103,23 +112,9 @@ namespace EloBuddyAutoQueuer
 			_curentStatus = Status.LoggedIn;
             champions = await _Connection.GetAvailableChampions();
             Globals.accountList.Add(this);
-            /*
-            var queues = await _Connection.GetAvailableQueues();
-            var botQueues = queues.Where(x => x.Type.Contains("BOT"));
-            var botqueue = botQueues.ToArray()[2];
-            var id = botqueue.Id;
-            var parameters = new MatchMakerParams
-            {
-                QueueIds = new[]
-                        {
+			Events.Instance.InvokeOnReceiveMessage(this, new Events.ReceivedMessageArgs() { Message = new EndOfGameStats() });
             
-                            Convert.ToInt32(id)
-                        },
-                BotDifficulty = "EASY"
-            };
-            
-            var asdf = await _Connection.AttachToQueue(parameters);
-            */
+           
         }
 
 		public int getLevel()

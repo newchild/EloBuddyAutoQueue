@@ -14,4 +14,20 @@ namespace EloBuddyAutoQueuer
 		Disconnected,
 		InGame
 	}
+
+	public enum SummonerSpells
+	{
+		Ghost = 6,
+		Heal,
+		Ignite = 14,
+		Barrier = 21
+	}
+
+	public enum Champ
+	{
+		Ashe = 22,
+		Caitlyn = 51,
+		Cassiopeia = 69,
+		Ezreal = 81
+	}
 }

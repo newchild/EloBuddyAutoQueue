@@ -25,8 +25,10 @@ namespace EloBuddyAutoQueuer
 		{
 			InitializeComponent();
 			Title = "Log In";
+			
 			WindowHandler.Instance.setLogInWindow(this);
 			WindowHandler.Instance.ShowWindow(typeof(Logger));
+			MessageHandler.Setup();
 			if (!File.Exists("settings.ini")){
 				WindowHandler.Instance.ShowWindow(typeof(FirstRun));
 				//WindowHandler.Instance.CloseWindow(typeof(Login));
@@ -35,6 +37,7 @@ namespace EloBuddyAutoQueuer
 			{
 				Ini iniFile = new Ini("settings.ini");
 				StaticData.EBLocation = iniFile.GetValue("EBLocation");
+				StaticData.LoLLocation = iniFile.GetValue("LoLLocation");
 			}
         }
 

@@ -79,6 +79,7 @@
     <Compile Include="Logger.xaml.cs">
       <DependentUpon>Logger.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessageHandler.cs" />
     <Compile Include="Patcher.cs" />
     <Compile Include="Patcher.xaml.cs">
       <DependentUpon>Patcher.xaml</DependentUpon>
