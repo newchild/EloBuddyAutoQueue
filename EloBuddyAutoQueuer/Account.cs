@@ -1,5 +1,4 @@
 ﻿using System;
-using agsXMPP;
 using LoLLauncher;
 using LoLLauncher.RiotObjects.Platform.Catalog.Champion;
 using LoLLauncher.RiotObjects.Platform.Clientfacade.Domain;
@@ -25,7 +24,6 @@ namespace EloBuddyAutoQueuer
 		public bool inChampSelect;
 		public bool QueuePop;
 		public bool ready;
-		public XmppClientConnection xmpp;
 
 		public Account(string Username, string Password, Region region, QueueTypes queue = QueueTypes.MEDIUM_BOT)
 		{
@@ -46,26 +44,6 @@ namespace EloBuddyAutoQueuer
 			//Naming of this one is wrong, it actually checks if it is the first tick of CHAMP_SELECT
 			inChampSelect = true;
 			QueuePop = false;
-			
-			switch (region)
-			{
-					case Region.EUW:
-						xmpp = new XmppClientConnection("chat.euw1.lol.riotgames.com ", 5223);
-						xmpp.Open(Username, "AIR_" + Password);
-						break;
-					case Region.EUN:
-						xmpp = new XmppClientConnection("chat.eun1.lol.riotgames.com ", 5223);
-						xmpp.Open(Username, "AIR_" + Password);
-						break;
-					case Region.NA:
-						xmpp = new XmppClientConnection("chat.na1.lol.riotgames.com ", 5223);
-						xmpp.Open(Username, "AIR_" + Password);
-						break;
-					case Region.TR:
-						xmpp = new XmppClientConnection("chat.tr1.lol.riotgames.com ", 5223);
-						xmpp.Open(Username, "AIR_" + Password);
-						break;
-			}
 		}
 
 		public ChampionDTO[] champions { get; private set; }

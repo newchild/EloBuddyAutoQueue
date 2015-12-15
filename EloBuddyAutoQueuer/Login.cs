@@ -13,10 +13,6 @@ namespace EloBuddyAutoQueuer
 		{
 			InitializeComponent();
 			Title = "Log In";
-			if (!Updater.isUpdated())
-			{
-				Updater.Update();
-			}
 			WindowHandler.Instance.setLogInWindow(this);
 			WindowHandler.Instance.ShowWindow(typeof (Logger));
 			MessageHandler.Setup();

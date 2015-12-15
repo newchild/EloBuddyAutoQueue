@@ -12,8 +12,6 @@ namespace EloBuddyAutoQueuer
 {
 	internal class MessageHandler
 	{
-		
-
 		private static readonly List<int> possibleHeroes = new List<int>
 		{
 			(int) Champ.Ashe,
@@ -21,7 +19,6 @@ namespace EloBuddyAutoQueuer
 			(int) Champ.Cassiopeia,
 			(int) Champ.Ezreal
 		};
-
 
 		private static MessageHandler _Instance;
 
@@ -55,17 +52,15 @@ namespace EloBuddyAutoQueuer
 							await sender.getConnectInfo().SetClientReceivedGameMessage(gameDTO.Id, "CHAMP_SELECT_CLIENT");
 							await sender.getConnectInfo().SelectSpells((int) SummonerSpells.Heal, (int) SummonerSpells.Ghost);
 							var heroes = await sender.getConnectInfo().GetAvailableChampions();
-							List<int> usableHeroes = (from hero in heroes where possibleHeroes.Contains(hero.ChampionId) && !hero.Banned select hero.ChampionId).ToList();
-							if (usableHeroes.Count == 0)
+							foreach (var hero in heroes)
 							{
-								Logging.Error("No valid champ found, picking first possible hero");
-								await sender.getConnectInfo().SelectChampion(heroes.FirstOrDefault().ChampionId);
-								await sender.getConnectInfo().ChampionSelectCompleted();
-								return;
+								if (possibleHeroes.Contains(hero.ChampionId) && !hero.Banned)
+								{
+									await sender.getConnectInfo().SelectChampion(hero.ChampionId);
+									Logging.Log("Selected " + (Champ) hero.ChampionId);
+									return;
+								}
 							}
-							usableHeroes.Shuffle();
-							await sender.getConnectInfo().SelectChampion(usableHeroes.FirstOrDefault());
-							Logging.Log("Selected " + (Champ)usableHeroes.FirstOrDefault());
 							await sender.getConnectInfo().ChampionSelectCompleted();
 						}
 						break;
@@ -121,6 +116,5 @@ namespace EloBuddyAutoQueuer
 				Process.Start(startInfo);
 			}
 		}
-		
 	}
 }
