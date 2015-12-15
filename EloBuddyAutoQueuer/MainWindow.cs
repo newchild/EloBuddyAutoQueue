@@ -11,7 +11,8 @@ namespace EloBuddyAutoQueuer
 		public MainWindow()
 		{
 			InitializeComponent();
-			//image.Source = StaticUtils.GetImageStream(LoginHandler.profilePicture);
+			image.Source = StaticUtils.GetImageStream(LoginHandler.profilePicture);
+			label.Content = "Welcome back, " + LoginHandler.ShownUser;
 			Title = "EloBuddy AutoQueuer";
 			Events.Instance.OnAddAccount += Events_OnAddAccount;
 		}
@@ -23,7 +24,7 @@ namespace EloBuddyAutoQueuer
 			{
 				accinf.Add(new AccountInformation(user));
 			}
-			Dispatcher.Invoke(delegate { dataGrid.ItemsSource = accinf; });
+			//Dispatcher.Invoke(delegate { dataGrid.ItemsSource = accinf; });
 		}
 
 		private void newAccountButton_Click(object sender, RoutedEventArgs e)

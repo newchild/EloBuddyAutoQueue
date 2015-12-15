@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EloBuddyAutoQueuer"
         mc:Ignorable="d"
-        Title="Add Account" Height="147.899" Width="324.37">
+        Title="Add Account" Height="147.899" Width="324.37" Background="#FF191919">
 	<Window.Resources>
 
 	</Window.Resources>

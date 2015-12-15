@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EloBuddyAutoQueuer"
         mc:Ignorable="d"
-        Title="First Run" Height="106.719" Width="463.025" ResizeMode="NoResize">
+        Title="First Run" Height="106.719" Width="463.025" ResizeMode="NoResize" Background="#FF191919">
 	<Grid>
 
 		<Button x:Name="Select" Content="Continue" HorizontalAlignment="Left" Margin="368,10,0,0" VerticalAlignment="Top"

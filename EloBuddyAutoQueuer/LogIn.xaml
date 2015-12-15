@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EloBuddyAutoQueuer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="274.51" Width="349.51" ResizeMode="NoResize">
+        Title="MainWindow" Height="274.51" Width="349.51" ResizeMode="NoResize" Background="#FF191919">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="371*" />
