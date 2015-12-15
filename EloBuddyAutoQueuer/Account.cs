@@ -1,60 +1,31 @@
-﻿using LoLLauncher;
+﻿using System;
+using LoLLauncher;
 using LoLLauncher.RiotObjects.Platform.Catalog.Champion;
 using LoLLauncher.RiotObjects.Platform.Clientfacade.Domain;
-using LoLLauncher.RiotObjects.Platform.Game;
-using LoLLauncher.RiotObjects.Platform.Game.Message;
 using LoLLauncher.RiotObjects.Platform.Matchmaking;
 using LoLLauncher.RiotObjects.Platform.Statistics;
-using LoLLauncher.RiotObjects;
-using LoLLauncher.RiotObjects.Leagues.Pojo;
-using LoLLauncher.RiotObjects.Platform.Game.Practice;
-using LoLLauncher.RiotObjects.Platform.Harassment;
-using LoLLauncher.RiotObjects.Platform.Leagues.Client.Dto;
-using LoLLauncher.RiotObjects.Platform.Login;
-using LoLLauncher.RiotObjects.Platform.Reroll.Pojo;
-using LoLLauncher.RiotObjects.Platform.Statistics.Team;
-using LoLLauncher.RiotObjects.Platform.Summoner;
-using LoLLauncher.RiotObjects.Platform.Summoner.Boost;
-using LoLLauncher.RiotObjects.Platform.Summoner.Masterybook;
-using LoLLauncher.RiotObjects.Platform.Summoner.Runes;
-using LoLLauncher.RiotObjects.Platform.Summoner.Spellbook;
-using LoLLauncher.RiotObjects.Team;
-using LoLLauncher.RiotObjects.Team.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Text.RegularExpressions;
 
 namespace EloBuddyAutoQueuer
 {
 	public class Account
 	{
-		private string _Username;
-		private LoginDataPacket _LoginPacket;
-		private string _Password;
-		private Region _Region;
-		private LoLConnection _Connection;
-		private int _LoginQueueCount;
 		private bool _Connected;
-		private bool _LoggedIn;
-		private QueueTypes _QueueType;
-		private bool _inQueue;
+		private readonly LoLConnection _Connection;
 		private Status _curentStatus;
 		private SearchingForMatchNotification _GameSearchNotification;
-        public bool ready;
+		private bool _inQueue;
+		private bool _LoggedIn;
+		private LoginDataPacket _LoginPacket;
+		private int _LoginQueueCount;
+		private readonly string _Password;
+		private QueueTypes _QueueType;
+		private readonly Region _Region;
+		private readonly string _Username;
 		public bool inChampSelect;
-        public ChampionDTO[] champions { get; private set; }
 		public bool QueuePop;
+		public bool ready;
 
-		public LoLConnection getConnectInfo()
-		{
-			return _Connection;
-		}
-
-        public Account(string Username, string Password, Region region, QueueTypes queue = QueueTypes.MEDIUM_BOT)
+		public Account(string Username, string Password, Region region, QueueTypes queue = QueueTypes.MEDIUM_BOT)
 		{
 			_curentStatus = Status.Disconnected;
 			_inQueue = false;
@@ -75,9 +46,16 @@ namespace EloBuddyAutoQueuer
 			QueuePop = false;
 		}
 
+		public ChampionDTO[] champions { get; private set; }
+
+		public LoLConnection getConnectInfo()
+		{
+			return _Connection;
+		}
+
 		private void _Connection_OnMessageReceived(object sender, object message)
 		{
-			Events.Instance.InvokeOnReceiveMessage(this, new Events.ReceivedMessageArgs() { Message = message });
+			Events.Instance.InvokeOnReceiveMessage(this, new Events.ReceivedMessageArgs {Message = message});
 		}
 
 		private void _connection_OnDisconnect(object sender, EventArgs e)
@@ -110,12 +88,10 @@ namespace EloBuddyAutoQueuer
 			Logging.Log("Subscribed to Notifications");
 			_LoggedIn = true;
 			_curentStatus = Status.LoggedIn;
-            champions = await _Connection.GetAvailableChampions();
-            Globals.accountList.Add(this);
-			Events.Instance.InvokeOnReceiveMessage(this, new Events.ReceivedMessageArgs() { Message = new EndOfGameStats() });
-            
-           
-        }
+			champions = await _Connection.GetAvailableChampions();
+			Globals.accountList.Add(this);
+			Events.Instance.InvokeOnReceiveMessage(this, new Events.ReceivedMessageArgs {Message = new EndOfGameStats()});
+		}
 
 		public int getLevel()
 		{
@@ -135,7 +111,7 @@ namespace EloBuddyAutoQueuer
 		{
 			Logging.Log(_Username + " connected");
 			_Connected = true;
-        }
+		}
 
 		public bool isLoggedIn()
 		{

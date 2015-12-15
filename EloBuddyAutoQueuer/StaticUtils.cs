@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
 namespace EloBuddyAutoQueuer
 {
-	class StaticUtils
+	internal class StaticUtils
 	{
 		[DllImport("gdi32.dll")]
 		[return: MarshalAs(UnmanagedType.Bool)]
@@ -20,13 +17,13 @@ namespace EloBuddyAutoQueuer
 		public static BitmapSource GetImageStream(Image myImage)
 		{
 			var bitmap = new Bitmap(myImage);
-			IntPtr bmpPt = bitmap.GetHbitmap();
-			BitmapSource bitmapSource =
-			 System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-				   bmpPt,
-				   IntPtr.Zero,
-				   Int32Rect.Empty,
-				   BitmapSizeOptions.FromEmptyOptions());
+			var bmpPt = bitmap.GetHbitmap();
+			var bitmapSource =
+				Imaging.CreateBitmapSourceFromHBitmap(
+					bmpPt,
+					IntPtr.Zero,
+					Int32Rect.Empty,
+					BitmapSizeOptions.FromEmptyOptions());
 
 			//freeze bitmapSource and clear memory to avoid memory leaks
 			bitmapSource.Freeze();
@@ -37,11 +34,10 @@ namespace EloBuddyAutoQueuer
 
 		public static Image LoadImage(string Input)
 		{
-			
-			byte[] bytes = Convert.FromBase64String(Input);
+			var bytes = Convert.FromBase64String(Input);
 
 			Image image;
-			using (MemoryStream ms = new MemoryStream(bytes))
+			using (var ms = new MemoryStream(bytes))
 			{
 				image = Image.FromStream(ms);
 			}

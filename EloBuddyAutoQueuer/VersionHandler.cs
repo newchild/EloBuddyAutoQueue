@@ -1,40 +1,31 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using System.Web.Script.Serialization;
 using System.IO;
+using System.Net;
+using System.Web.Script.Serialization;
 
 namespace EloBuddyAutoQueuer
 {
-	class VersionHandler
+	internal class VersionHandler
 	{
-		
-
-	
-
 		public static string GameVersion
 		{
 			get
 			{
-				string dragonJSON = "";
-				using (WebClient client = new WebClient())
+				var dragonJSON = "";
+				using (var client = new WebClient())
 				{
 					dragonJSON = client.DownloadString("http://ddragon.leagueoflegends.com/realms/na.js");
 				}
 				dragonJSON = dragonJSON.Replace("Riot.DDragon.m=", "").Replace(";", "");
-				JavaScriptSerializer serializer = new JavaScriptSerializer();
-				Dictionary<string, object> deserializedJSON = serializer.Deserialize<Dictionary<string, object>>(dragonJSON);
-				string Version = (string)deserializedJSON["v"];
+				var serializer = new JavaScriptSerializer();
+				var deserializedJSON = serializer.Deserialize<Dictionary<string, object>>(dragonJSON);
+				var Version = (string) deserializedJSON["v"];
 				Logging.Log("Game version: " + Version);
 				return Version;
 			}
 		}
-		
+
 		private static void CopyFile(string from, string to)
 		{
 			var byteArray = File.ReadAllBytes(from);
@@ -45,7 +36,6 @@ namespace EloBuddyAutoQueuer
 		{
 			try
 			{
-
 				CopyFile(Path.Combine(StaticData.EBLocation, "System", "EloBuddy.Core.dll"), "EloBuddy.Core.dll");
 				CopyFile(Path.Combine(StaticData.EBLocation, "System", "EloBuddy.dll"), "EloBuddy.dll");
 				CopyFile(Path.Combine(StaticData.EBLocation, "System", "SharpDX.dll"), "SharpDX.dll");
@@ -60,6 +50,7 @@ namespace EloBuddyAutoQueuer
 				return false;
 			}
 		}
+
 		/*
 		class PatchInfo
 		{

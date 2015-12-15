@@ -8,10 +8,14 @@
         Title="First Run" Height="106.719" Width="463.025" ResizeMode="NoResize">
 	<Grid>
 
-		<Button x:Name="Select" Content="Continue" HorizontalAlignment="Left" Margin="368,10,0,0" VerticalAlignment="Top" Width="75" Click="Finish_Click"/>
-		<Label x:Name="label" Content="Select your EloBuddy executable" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="27" Width="257"/>
-		<Label x:Name="label_Copy" Content="Select your LoL Launcher" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="27" Width="257"/>
-		<Button x:Name="Finish_Copy" Content="Continue" HorizontalAlignment="Left" Margin="368,41,0,0" VerticalAlignment="Top" Width="75" Click="Finish_Copy_Click"/>
+		<Button x:Name="Select" Content="Continue" HorizontalAlignment="Left" Margin="368,10,0,0" VerticalAlignment="Top"
+		        Width="75" Click="Finish_Click" />
+		<Label x:Name="label" Content="Select your EloBuddy executable" HorizontalAlignment="Left" Margin="10,10,0,0"
+		       VerticalAlignment="Top" Height="27" Width="257" />
+		<Label x:Name="label_Copy" Content="Select your LoL Launcher" HorizontalAlignment="Left" Margin="10,41,0,0"
+		       VerticalAlignment="Top" Height="27" Width="257" />
+		<Button x:Name="Finish_Copy" Content="Continue" HorizontalAlignment="Left" Margin="368,41,0,0"
+		        VerticalAlignment="Top" Width="75" Click="Finish_Copy_Click" />
 
 	</Grid>
 </Window>

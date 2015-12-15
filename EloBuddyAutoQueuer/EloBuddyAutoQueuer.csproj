@@ -62,31 +62,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddAccountWindow.xaml.cs">
+    <Compile Include="AddAccountWindow.cs">
       <DependentUpon>AddAccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Account.cs" />
+    <Compile Include="Champ.cs" />
     <Compile Include="Crypto.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="ItemRow.cs" />
-    <Compile Include="FirstRun.xaml.cs">
+    <Compile Include="FirstRun.cs">
       <DependentUpon>FirstRun.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ini.cs" />
     <Compile Include="Logging.cs" />
-    <Compile Include="Logger.xaml.cs">
+    <Compile Include="Logger.cs">
       <DependentUpon>Logger.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageHandler.cs" />
-    <Compile Include="Patcher.cs" />
+    <Compile Include="TempPatcher.cs" />
     <Compile Include="Patcher.xaml.cs">
       <DependentUpon>Patcher.xaml</DependentUpon>
     </Compile>
     <Compile Include="StaticData.cs" />
     <Compile Include="StaticUtils.cs" />
-    <Compile Include="TeamManage.xaml.cs">
+    <Compile Include="SummonerSpells.cs" />
+    <Compile Include="TeamManage.cs">
       <DependentUpon>TeamManage.xaml</DependentUpon>
     </Compile>
     <Compile Include="VersionHandler.cs" />
@@ -94,6 +96,10 @@
     <Page Include="AddAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpressionDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FirstRun.xaml">
       <SubType>Designer</SubType>
@@ -107,11 +113,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="App.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LogIn.xaml.cs">
+    <Compile Include="Login.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -129,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoginHandler.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="MainWindow.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

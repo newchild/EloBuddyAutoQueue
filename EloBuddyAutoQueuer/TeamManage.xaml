@@ -6,31 +6,34 @@
         xmlns:local="clr-namespace:EloBuddyAutoQueuer"
         mc:Ignorable="d"
         Title="TeamManage" Height="351.483" Width="486.229">
-    <Grid>
-        <Label x:Name="label" Content="Leader:" HorizontalAlignment="Left" Height="32" Margin="59,26,0,0" VerticalAlignment="Top" Width="57"/>
-        <Button x:Name="button" Content="Change" HorizontalAlignment="Left" Height="25" Margin="335,27,0,0" VerticalAlignment="Top" Width="67" Click="button_Click"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="158" Width="285" Margin="132,141,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Summonername" IsReadOnly="True" Binding="{Binding Path=Name}"/>
-                <DataGridTextColumn Header="Level" IsReadOnly="True" Binding="{Binding Path=Level}"/>
-                <DataGridComboBoxColumn Header="Champion"
-    SelectedValueBinding="{Binding Path=ComboList}"
-      SelectedValuePath="ChampionId"
-    DisplayMemberPath="DisplayName">
-                    <DataGridComboBoxColumn.ElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource" Value="{Binding Path=ComboList}" />
-                        </Style>
-                    </DataGridComboBoxColumn.ElementStyle>
-                    <DataGridComboBoxColumn.EditingElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource" Value="{Binding Path=ComboList}" />
-                        </Style>
-                    </DataGridComboBoxColumn.EditingElementStyle>
-                </DataGridComboBoxColumn>
-                <DataGridCheckBoxColumn Header="Ready" Binding="{Binding Path=CheckBox}" ClipboardContentBinding="{x:Null}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+	<Grid>
+		<Label x:Name="label" Content="Leader:" HorizontalAlignment="Left" Height="32" Margin="59,26,0,0"
+		       VerticalAlignment="Top" Width="57" />
+		<Button x:Name="button" Content="Change" HorizontalAlignment="Left" Height="25" Margin="335,27,0,0"
+		        VerticalAlignment="Top" Width="67" Click="button_Click" />
+		<DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="158" Width="285"
+		          Margin="132,141,0,0">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Summonername" IsReadOnly="True" Binding="{Binding Path=Name}" />
+				<DataGridTextColumn Header="Level" IsReadOnly="True" Binding="{Binding Path=Level}" />
+				<DataGridComboBoxColumn Header="Champion"
+				                        SelectedValueBinding="{Binding Path=ComboList}"
+				                        SelectedValuePath="ChampionId"
+				                        DisplayMemberPath="DisplayName">
+					<DataGridComboBoxColumn.ElementStyle>
+						<Style TargetType="ComboBox">
+							<Setter Property="ItemsSource" Value="{Binding Path=ComboList}" />
+						</Style>
+					</DataGridComboBoxColumn.ElementStyle>
+					<DataGridComboBoxColumn.EditingElementStyle>
+						<Style TargetType="ComboBox">
+							<Setter Property="ItemsSource" Value="{Binding Path=ComboList}" />
+						</Style>
+					</DataGridComboBoxColumn.EditingElementStyle>
+				</DataGridComboBoxColumn>
+				<DataGridCheckBoxColumn Header="Ready" Binding="{Binding Path=CheckBox}" ClipboardContentBinding="{x:Null}" />
+			</DataGrid.Columns>
+		</DataGrid>
 
-    </Grid>
+	</Grid>
 </Window>

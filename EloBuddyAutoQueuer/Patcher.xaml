@@ -6,7 +6,5 @@
         xmlns:local="clr-namespace:EloBuddyAutoQueuer"
         mc:Ignorable="d"
         Title="Patcher" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+	<Grid />
 </Window>
